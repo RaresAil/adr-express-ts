@@ -4,16 +4,18 @@ import {
   FunctionParamsLoad,
   Responders,
   DomainList,
-  Actions
+  Actions,
+  EntityList
 } from '../@types/Router';
 
 type InjectType = 'class' | 'action';
 type DataType =
-  | 'responders'
-  | 'domains'
   | 'functionParams'
-  | 'actions'
-  | 'injections';
+  | 'injections'
+  | 'responders'
+  | 'entities'
+  | 'domains'
+  | 'actions';
 
 export default abstract class ExpressTS {
   private static injections: { [key: string]: Function } = {};
@@ -22,8 +24,9 @@ export default abstract class ExpressTS {
     name: Symbol('injectedName'),
     type: Symbol('type')
   };
-  private static domains: DomainList = {};
   private static responders: Responders = {};
+  private static entities: EntityList = {};
+  private static domains: DomainList = {};
   private static actions: Actions = {};
 
   // #region Injector
