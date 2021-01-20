@@ -15,7 +15,7 @@ import Injector from './Injector';
  *    private variable?: Type;
  * }
  */
-const Retrive = (name: string): any => (target: any, key: string | symbol) => {
+export default (name: string): any => (target: any, key: string | symbol) => {
   const getter = () => {
     return Injector.get<any>(name);
   };
@@ -26,5 +26,3 @@ const Retrive = (name: string): any => (target: any, key: string | symbol) => {
     enumerable: false
   });
 };
-
-export default Retrive;

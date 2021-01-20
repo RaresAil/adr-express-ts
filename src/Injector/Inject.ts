@@ -17,8 +17,8 @@ import ExpressTS from '../app/ExpressTS';
  */
 export default function Inject(constructor: Function): any {
   const Original = constructor;
-  if (!ExpressTS.get(Original.name)) {
-    ExpressTS.set(Original.name, Original);
+  if (!ExpressTS.getInjection(Original.name)) {
+    ExpressTS.setInjection(Original.name, Original);
   }
 
   const _injected: any = function () {};
