@@ -7,7 +7,8 @@ export default (payload: any) => (
   parameterIndex: number
 ) => {
   const { name } = target.constructor;
-  let params: FunctionParamData[] = ExpressTS.getFunctionsParams(name) || [];
+  let params: FunctionParamData[] =
+    (ExpressTS.getData(name, 'functionParams') as FunctionParamData[]) || [];
 
   params = [
     ...params,
@@ -18,5 +19,5 @@ export default (payload: any) => (
     } as FunctionParamData
   ];
 
-  ExpressTS.setFunctionsParams(name, params);
+  ExpressTS.setData(name, params, 'functionParams');
 };

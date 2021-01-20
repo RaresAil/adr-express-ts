@@ -1,4 +1,4 @@
-import { ActionFunction, ActionMethods } from '../@types/Router';
+import { Action, ActionFunction, ActionMethods } from '../@types/Router';
 import ExpressTS from './ExpressTS';
 
 export default (
@@ -18,17 +18,25 @@ export default (
     middlewares
   };
 
-  const action = ExpressTS.getAction(name);
+  const action = ExpressTS.getData(name, 'actions') as Action;
 
   if (!action) {
-    ExpressTS.setAction(name, {
-      functions: [actionFunction]
-    });
+    ExpressTS.setData(
+      name,
+      {
+        functions: [actionFunction]
+      },
+      'actions'
+    );
   } else {
-    ExpressTS.setAction(name, {
-      ...action,
-      functions: [...action.functions, actionFunction]
-    });
+    ExpressTS.setData(
+      name,
+      {
+        ...action,
+        functions: [...action.functions, actionFunction]
+      },
+      'actions'
+    );
   }
 
   return descriptor;

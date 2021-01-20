@@ -20,7 +20,7 @@
         "code": 125
       }
     ],
-    "indent": ["error", 2],
+    "indent": "off",
     "new-cap": "off"
   }
 }

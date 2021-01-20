@@ -2,40 +2,31 @@
 
 import {
   FunctionParamsLoad,
-  FunctionParamData,
   Responders,
-  Actions,
-  Action
+  DomainList,
+  Actions
 } from '../@types/Router';
 
 type InjectType = 'class' | 'action';
+type DataType =
+  | 'responders'
+  | 'domains'
+  | 'functionParams'
+  | 'actions'
+  | 'injections';
 
 export default abstract class ExpressTS {
   private static injections: { [key: string]: Function } = {};
-  private static functionsParams: FunctionParamsLoad = {};
+  private static functionParams: FunctionParamsLoad = {};
   private static symbols: { [key: string]: any } = {
     name: Symbol('injectedName'),
     type: Symbol('type')
   };
+  private static domains: DomainList = {};
   private static responders: Responders = {};
   private static actions: Actions = {};
 
   // #region Injector
-  static setInjection(name: string, value: Function) {
-    this.injections = {
-      ...this.injections,
-      [name]: value
-    };
-  }
-
-  static getInjection(name: string) {
-    if (!this.injections[name]) {
-      return null;
-    }
-
-    return Object.assign({}, this.injections[name]) as any;
-  }
-
   static inject(target: any, source: Function, type: InjectType) {
     target.prototype = source.prototype;
     target[this.symbols.name] = source.name;
@@ -51,50 +42,29 @@ export default abstract class ExpressTS {
   }
   // #endregion
 
-  // #region Actions
-  static setAction(name: string, action: Action) {
-    this.actions = {
-      ...this.actions,
-      [name]: action
+  static setData(name: string, value: any, type: DataType) {
+    this[type] = {
+      ...this[type],
+      [name]: value
     };
   }
 
-  static getAction(name: string): Action | null {
-    if (!this.actions[name]) {
+  static getData(name: string, type: DataType) {
+    if (!this[type][name]) {
       return null;
     }
 
-    return Object.assign({}, this.actions[name]);
-  }
-
-  static setFunctionsParams(name: string, param: FunctionParamData[]) {
-    this.functionsParams = {
-      ...this.functionsParams,
-      [name]: param
-    };
-  }
-
-  static getFunctionsParams(name: string) {
-    if (!this.functionsParams[name]) {
-      return null;
+    if (Array.isArray(this[type][name])) {
+      return [...(this[type][name] as any)];
     }
 
-    return [...this.functionsParams[name]];
-  }
-  // #endregion
-
-  static setResponder(name: string, responder: string) {
-    this.responders = {
-      ...this.responders,
-      [name]: responder
-    };
-  }
-
-  static getResponder(name: string): string | null {
-    if (!this.responders[name]) {
-      return null;
+    switch (typeof this[type][name]) {
+      case 'string':
+        return `${this[type][name]}`;
+      case 'object':
+        return Object.assign({}, this[type][name]);
+      default:
+        return this[type][name];
     }
-
-    return `${this.responders[name]}`;
   }
 }

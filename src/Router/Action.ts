@@ -1,3 +1,4 @@
+import { Action } from '../@types/Router';
 import ExpressTS from '../app/ExpressTS';
 
 /**
@@ -22,24 +23,32 @@ export default (path: string, middlewares?: (string | Function)[]): any => (
   constructor: any
 ) => {
   const Original = constructor;
-  const action = ExpressTS.getAction(Original.name);
+  const action = ExpressTS.getData(Original.name, 'actions') as Action;
 
   if (!action) {
-    ExpressTS.setAction(Original.name, {
-      target: Original,
-      instance: new Original(),
-      path,
-      functions: [],
-      middlewares
-    });
+    ExpressTS.setData(
+      Original.name,
+      {
+        target: Original,
+        instance: new Original(),
+        path,
+        functions: [],
+        middlewares
+      },
+      'actions'
+    );
   } else {
-    ExpressTS.setAction(Original.name, {
-      ...action,
-      target: Original,
-      instance: new Original(),
-      path,
-      middlewares
-    });
+    ExpressTS.setData(
+      Original.name,
+      {
+        ...action,
+        target: Original,
+        instance: new Original(),
+        path,
+        middlewares
+      },
+      'actions'
+    );
   }
 
   const _injectedAction: any = function () {};

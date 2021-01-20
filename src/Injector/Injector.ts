@@ -22,7 +22,7 @@ export default abstract class Injector {
    * @return {T | null}
    */
   public static get<T>(name: string): T | null {
-    const entry = ExpressTS.getInjection(name);
+    const entry = ExpressTS.getData(name, 'injections') as any;
     if (!entry?.instance) {
       return null;
     }
@@ -48,7 +48,7 @@ export default abstract class Injector {
 
     const injectedName = ExpressTS.getInjectedField(value, 'name');
     const injectedType = ExpressTS.getInjectedField(value, 'type');
-    const InstanceTarget = ExpressTS.getInjection(injectedName);
+    const InstanceTarget = ExpressTS.getData(injectedName, 'injections') as any;
 
     if (
       InstanceTarget &&

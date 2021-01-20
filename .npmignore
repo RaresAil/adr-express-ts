@@ -1,4 +1,5 @@
 src/
+.github/
 .eslintrc.json
 tsconfig.json
 .gitignore

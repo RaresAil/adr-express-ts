@@ -33,8 +33,8 @@ export default (name: string): any => (constructor: any) => {
     throw new Error('The responder must be called first!');
   }
 
-  if (!ExpressTS.getResponder(constructor.name)) {
-    ExpressTS.setResponder(constructor.name, name);
+  if (!ExpressTS.getData(constructor.name, 'responders')) {
+    ExpressTS.setData(constructor.name, name, 'responders');
   }
 
   return constructor;
