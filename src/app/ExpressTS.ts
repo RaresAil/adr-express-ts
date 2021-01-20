@@ -3,8 +3,6 @@
 export type InjectType = 'class';
 
 export default abstract class ExpressTS {
-  private static blockInjections = false;
-
   private static symbols: { [key: string]: any } = {
     name: Symbol('injectedName'),
     type: Symbol('type')
@@ -12,10 +10,6 @@ export default abstract class ExpressTS {
   private static injections: { [key: string]: Function } = {};
 
   static set(name: string, value: Function) {
-    if (this.blockInjections) {
-      return;
-    }
-
     this.injections = {
       ...this.injections,
       [name]: value
@@ -36,8 +30,7 @@ export default abstract class ExpressTS {
     return target[this.symbols[field]];
   }
 
-  static frezee() {
-    this.blockInjections = true;
-    this.injections = Object.freeze({});
+  static clear() {
+    this.injections = {};
   }
 }

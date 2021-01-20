@@ -91,6 +91,10 @@ export default abstract class Injector {
     }
   }
 
+  /**
+   * This function will trigger the onLoad as a promise and
+   * after will trigger the onReady
+   */
   public static async ready() {
     const entities = Object.values(this.instances).filter(
       (x: any) => x.type === InjectType.Class && x.instance && x.instance.onLoad
@@ -110,6 +114,6 @@ export default abstract class Injector {
       x.instance.onReady();
     });
 
-    ExpressTS.frezee();
+    ExpressTS.clear();
   }
 }
