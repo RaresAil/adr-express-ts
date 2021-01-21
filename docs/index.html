@@ -100,6 +100,145 @@
       
 
 
+  <section class="readme">
+    <article>
+      <h1>ADR Express TypeScript</h1>
+<p><img src="https://github.com/RaresAil/adr-express-ts/workflows/Build/badge.svg" alt="Build">
+<img src="https://github.com/RaresAil/eadit-cli/workflows/EADIT-CLI%20CI/badge.svg" alt="EADIT-CLI CI"></p>
+<ul>
+<li><a href="https://raresail.github.io/adr-express-ts/">Documentation</a></li>
+<li><a href="https://github.com/RaresAil/adr-express-ts">GitHub</a></li>
+<li><a href="https://www.npmjs.com/package/adr-express-ts">NPM</a></li>
+</ul>
+<p>This package is a dependency injection for express with typescript using decorators and the <a href="https://en.wikipedia.org/wiki/Action%E2%80%93domain%E2%80%93responder">Action–Domain–Responder</a> pattern.</p>
+<h2>Getting Started</h2>
+<h4>Create</h4>
+<p>Use my CLI to create the application. Instead of &quot;myFolderName&quot; you can add &quot;.&quot; to install it in the current directory.
+Always use <code>npx</code> to use the latest version of the CLI.</p>
+<pre class="prettyprint source lang-zsh"><code>npx eadit-cli create myFolderName
+</code></pre>
+<h4>Template Check</h4>
+<p>You will be asked to choose a template. For this one you have to select <code>Express</code></p>
+<pre class="prettyprint source lang-zsh"><code>? What template do you want? (Use arrow keys)
+❯ Express
+  Discord.js
+</code></pre>
+<h4>Path Check</h4>
+<p>You will get the following question:</p>
+<pre class="prettyprint source lang-zsh"><code>? Is the path correct? ('/my/path/to/application') (Y/n)
+</code></pre>
+<p>If the path is correct respond with <code>Y</code> or press <code>Enter</code></p>
+<h4>Yarn Check</h4>
+<p>If you have Yarn installed, the CLI will ask if you want to use it, if you say <code>N</code> npm will be used.</p>
+<pre class="prettyprint source lang-zsh"><code>? Yarn was detected on your system, do you want to use Yarn? (Y/n)
+</code></pre>
+<h4>Dependency Selector</h4>
+<p>For the next part you can choose if you need more dependencies (They will be automaticly injected).
+<img src="scripts/resources/cli-q-2.png" alt="Question 2"></p>
+<h4>Dialect Selector (Only for Sequelize) and complete extra information</h4>
+<p>If you choose <code>Sequelize</code>, you will also be asked to choose which dialect you want and to complete the connection information.
+<img src="scripts/resources/cli-q-3.png" alt="Question 3"></p>
+<h4>Check if directory is empty</h4>
+<p>If the directory you want to create the application is not empty, you will be asked if you want to remove all files from it. If you don't remove the files the project will not be created.</p>
+<pre class="prettyprint source lang-zsh"><code>? The current directory is not empty, do you want to clear it? (y/N)
+</code></pre>
+<h4>Finish</h4>
+<p>After everything is installed, you should see the following output.
+<img src="scripts/resources/cli-q-final.png" alt="Final"></p>
+<h2>About Action–Domain–Responder</h2>
+<ul>
+<li>The action takes HTTP requests (URLs and their methods) and uses that input to interact with the domain, after which it passes the domain's output to one and only one responder.</li>
+<li>The domain can modify state, interacting with storage and/or manipulating data as needed. It contains the business logic.</li>
+<li>The responder builds the entire HTTP response from the domain's output which is given to it by the action.</li>
+<li>The entity is the model for the database</li>
+</ul>
+<h2>Project structure</h2>
+<pre class="prettyprint source lang-markdown"><code>/src
+
+# Here you define the tests, there are default tests defined.
+
+- /**tests**
+
+- /actions
+
+# Here you define the route and the methods (get, post, put, delete)
+
+# Are automatically injectetd!
+
+- - action.ts
+
+- /app
+
+# Here you start the server (app.listen) and other checks before/after starting.
+
+- - Server.ts
+
+- /domain
+- - /entities
+
+# Here you define the entiry (They are accessed with @Retrive('Entity.NAME') or from your ORM)
+
+# Are automatically injectetd!
+
+- - - entity.ts
+
+# Here you define the domain (They are accessed with @Retrive('Domain.NAME'))
+
+# Are automatically injectetd!
+
+- - domain.ts
+
+- /middlewares
+
+# Here you define middlewares (as classes).
+
+# You inject them manually
+
+- - middleware.ts
+
+/public
+
+# In public (depends on the Configuration made in index.ts) you have the front-end,
+
+# all routes point to index.html (i made it so it can work with React)
+
+- - index.html
+
+- /responders
+
+# Here you define the domains (They are accessed with @Retrive('Responder.NAME'))
+
+# Are automatically injectetd!
+
+- - responder.ts
+
+# Here you inject classes, middlewares, variables, functions, server, router, etc.
+
+# And you have to call Injector.ready(); when you finished all your injections.
+
+- index.ts
+</code></pre>
+<h2>Configuration</h2>
+<pre class="prettyprint source lang-js"><code>Injector.inject(
+  'Configuration',
+  {
+    root: __dirname,
+    restPrefix: '/api',
+    debug: {
+      log: console.log,
+      error: console.error
+    },
+    renderEngine: {
+      path: '/',
+      directory: ['public']
+    }
+  } as Configuration,
+  InjectType.Variable
+);
+</code></pre>
+    </article>
+  </section>
+
 
     
 

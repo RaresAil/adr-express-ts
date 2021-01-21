@@ -45,6 +45,11 @@
     "read:docs": "serve ./docs",
     "version": "npm run build"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run generate:docs"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RaresAil/adr-express-ts.git"
@@ -64,6 +69,7 @@
     "eslint": "^7.18.0",
     "eslint-config-google": "^0.14.0",
     "fs-extra": "^9.1.0",
+    "husky": "^4.3.8",
     "jsdoc": "^3.6.6",
     "jsdoc-escape-at": "^1.0.1",
     "ts-node": "^9.1.1",
