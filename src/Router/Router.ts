@@ -12,7 +12,7 @@ import express, {
 } from 'express';
 
 import { Inject, Retrive, Injector } from '../Injector';
-import { Action, MiddlewareClass } from '../@types';
+import { Action, Middleware } from '../@types';
 import { AsyncMiddleware, AsyncRoute } from '../utils';
 import ExpressTS from '../app/ExpressTS';
 import { getParamValue } from './Params';
@@ -86,7 +86,7 @@ export default class Router {
         this.lock.acquire('app-middleware-injector', (done) => {
           try {
             if (typeof middleware === 'string') {
-              const mid = Injector.get<MiddlewareClass | undefined | null>(
+              const mid = Injector.get<Middleware | undefined | null>(
                 middleware
               );
 
@@ -295,7 +295,7 @@ export default class Router {
             this.lock.acquire('app-middleware-injector', (done) => {
               try {
                 if (typeof middleware === 'string') {
-                  const mid = Injector.get<MiddlewareClass | undefined | null>(
+                  const mid = Injector.get<Middleware | undefined | null>(
                     middleware
                   );
 
@@ -377,9 +377,9 @@ export default class Router {
 
                 try {
                   if (typeof middleware === 'string') {
-                    const mid = Injector.get<
-                      MiddlewareClass | undefined | null
-                    >(middleware);
+                    const mid = Injector.get<Middleware | undefined | null>(
+                      middleware
+                    );
 
                     if (mid) {
                       this.debugLog('Method Middleware loaded %o', middleware);

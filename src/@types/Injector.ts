@@ -12,7 +12,7 @@ export interface InjectedEntity {
   onLoad(): Promise<void>;
 }
 
-export interface MiddlewareClass {
+export interface Middleware {
   middleware(
     req: ExpressRequest,
     res: ExpressResponse,
@@ -24,8 +24,8 @@ export interface MiddlewareClass {
  * Interface for classes that are middlewares.
  *
  * @abstract
- * @classdesc The MiddlewareClass interface. This class can't be instantiated.
- * @class ~MiddlewareClass
+ * @classdesc The Middleware interface. This class can't be instantiated.
+ * @class ~Middleware
  * @hideconstructor
  * @memberof module:Injector
  */
@@ -34,7 +34,7 @@ export interface MiddlewareClass {
  * The middleware function.
  *
  * @public
- * @method ~MiddlewareClass.middleware
+ * @method ~Middleware.middleware
  * @memberof module:Injector
  *
  * @param {Express.Request} req Express's Request
@@ -42,10 +42,10 @@ export interface MiddlewareClass {
  * @param {Express.NextFunction} next Express's Next Function
  * @returns {Promise<any>}
  *
- * @example <caption>Example usage of [MiddlewareClass]{@link module:Injector~MiddlewareClass}.</caption>
+ * @example <caption>Example usage of [Middleware]{@link module:Injector~Middleware}.</caption>
  * [\@Inject]{@link module:Injector.@Inject}
- * export default class AuthentificationMiddleware implements [MiddlewareClass]{@link module:Injector~MiddlewareClass} {
- *    public async [middleware]{@link module:Injector~MiddlewareClass.middleware}(
+ * export default class AuthentificationMiddleware implements [Middleware]{@link module:Injector~Middleware} {
+ *    public async [middleware]{@link module:Injector~Middleware.middleware}(
  *      req: Request,
  *      res: Response,
  *      next: NextFunction

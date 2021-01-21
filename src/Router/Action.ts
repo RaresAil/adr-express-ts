@@ -7,7 +7,7 @@ import ExpressTS from '../app/ExpressTS';
  *
  * All the actions must be in ``src/actions`` and to have the ``@Action`` decorator.
  *
- * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~MiddlewareClass}
+ * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~Middleware}
  * as strings or function middlewares.
  * @static
  * @return {any}

@@ -4,7 +4,7 @@ import defineMethod from '../app/defineMethod';
 /**
  * This decorator is used to define a GET Route.
  *
- * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~MiddlewareClass}
+ * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~Middleware}
  * as strings or function middlewares.
  * @static
  * @return {any}
@@ -40,7 +40,7 @@ export const Get = (child?: string, middlewares?: (string | Function)[]): any =>
 /**
  * This decorator is used to define a POST Route.
  *
- * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~MiddlewareClass}
+ * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~Middleware}
  * as strings or function middlewares.
  * @static
  * @return {any}
@@ -75,7 +75,7 @@ export const Post = (
 /**
  * This decorator is used to define a PUT Route.
  *
- * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~MiddlewareClass}
+ * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~Middleware}
  * as strings or function middlewares.
  * @static
  * @return {any}
@@ -103,7 +103,7 @@ export const Put = (child?: string, middlewares?: (string | Function)[]): any =>
 /**
  * This decorator is used to define a PATCH Route.
  *
- * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~MiddlewareClass}
+ * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~Middleware}
  * as strings or function middlewares.
  * @static
  * @return {any}
@@ -133,7 +133,7 @@ export const Patch = (
 /**
  * This decorator is used to define a DELETE Route.
  *
- * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~MiddlewareClass}
+ * The middlewares can be [Class Middlewares (Injected)]{@link module:Injector~Middleware}
  * as strings or function middlewares.
  * @static
  * @return {any}
