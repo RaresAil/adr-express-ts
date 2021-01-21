@@ -6,4 +6,5 @@ scripts/
 .eslintrc.json
 .gitignore
 .jsdoc.json
+README.md
 tsconfig.json
