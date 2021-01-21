@@ -22,12 +22,11 @@ export default abstract class Injector {
    * @return {T | null}
    */
   public static get<T>(name: string): T | null {
-    const entry = ExpressTS.getData(name, 'injections') as any;
-    if (!entry?.instance) {
+    if (!this.instances[name]?.instance) {
       return null;
     }
 
-    return entry.instance;
+    return this.instances[name].instance;
   }
 
   /**

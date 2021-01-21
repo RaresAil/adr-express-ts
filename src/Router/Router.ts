@@ -433,11 +433,9 @@ export default class Router {
                   getParamValue(paramName, req, res, next)
                 );
 
-                const actionRes = await action.instance[functionData.name](
-                  ...params
-                );
+                await action.instance[functionData.name](...params);
 
-                if (!actionRes) {
+                if (!res.headersSent) {
                   res.status(500).json({
                     success: false,
                     message: 'No response was added for this route'

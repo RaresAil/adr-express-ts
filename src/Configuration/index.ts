@@ -44,14 +44,8 @@ export const defaultErrorHandler: ErroHandler = (
 ): Response<any> => {
   // eslint-disable-next-line no-console
   console.error('Error caught!', error);
-
-  if (res.headersSent) {
-    return next(error) as any;
-  }
-
   return res.status(500).json({
     success: false,
-    code: 'internal-error',
     message: 'Internal Server Error'
   });
 };
