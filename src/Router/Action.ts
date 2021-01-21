@@ -11,10 +11,12 @@ import ExpressTS from '../app/ExpressTS';
  * as strings or function middlewares.
  * @static
  * @return {any}
+ * @method Action
+ * @memberof module:Router
  * @param {!string} path The path of the router
  * @param {?Array.<string | Function>} middlewares Middlewares
- * @example <caption>Example usage of [\@Action]{@link module:Router.@Action}.</caption>
- * [\@Action]{@link module:Router.@Action}('/path', ['ClassMiddleware', functionMiddleware])
+ * @example <caption>Example usage of [\@Action]{@link module:Router.Action}.</caption>
+ * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
  *
  * }

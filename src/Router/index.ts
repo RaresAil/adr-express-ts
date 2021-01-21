@@ -1,3 +1,5 @@
+/** @module Router **/
+
 export { default as Responder } from './Responder';
 export { default as Action } from './Action';
 export { default as Domain } from './Domain';

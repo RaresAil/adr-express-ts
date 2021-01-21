@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      Router - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+  <link type="text/css" rel="stylesheet" href="styles/collapse.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li >
+        <a href="index.html">
+          
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      ADR Express Typescript
+    </h3>
+
+    
+      <h3>
+        Resources
+      </h3>
+      
+        <a href="https://github.com/RaresAil/adr-express-ts">GitHub</a>
+      
+        <a href="https://github.com/RaresAil/adr-express-ts">NPM</a>
+      
+    
+
+    <h3>Classes</h3><ul><li id="Injector-nav"><a href="module-Injector.Injector.html">Injector</a><ul class='methods'><li data-type="method" id="Injector-get-nav"><a href="module-Injector.Injector.html#.get">get</a></li><li data-type="method" id="Injector-inject-nav"><a href="module-Injector.Injector.html#.inject">inject</a></li><li data-type="method" id="Injector-ready-nav"><a href="module-Injector.Injector.html#.ready">ready</a></li></ul></li><li id="InjectedClass-nav"><a href="module-Injector-InjectedClass.html">InjectedClass</a><ul class='methods'><li data-type="method" id="InjectedClass-onReady-nav"><a href="module-Injector-InjectedClass.html#.onReady">onReady</a></li></ul></li><li id="InjectedEntity-nav"><a href="module-Injector-InjectedEntity.html">InjectedEntity</a><ul class='methods'><li data-type="method" id="InjectedEntity-onLoad-nav"><a href="module-Injector-InjectedEntity.html#.onLoad">onLoad</a></li></ul></li><li id="Middleware-nav"><a href="module-Injector-Middleware.html">Middleware</a><ul class='methods'><li data-type="method" id="Middleware-middleware-nav"><a href="module-Injector-Middleware.html#.middleware">middleware</a></li></ul></li></ul><h3>Modules</h3><ul><li id="Injector-nav"><a href="module-Injector.html">Injector</a><ul class='methods'><li data-type="method" id="Injector-Inject-nav"><a href="module-Injector.html#.Inject">Inject</a></li><li data-type="method" id="Injector-Retrive-nav"><a href="module-Injector.html#.Retrive">Retrive</a></li></ul></li><li id="Router-nav"><a href="module-Router.html">Router</a><ul class='methods'><li data-type="method" id="Router-Action-nav"><a href="module-Router.html#.Action">Action</a></li><li data-type="method" id="Router-Delete-nav"><a href="module-Router.html#.Delete">Delete</a></li><li data-type="method" id="Router-Domain-nav"><a href="module-Router.html#.Domain">Domain</a></li><li data-type="method" id="Router-Entity-nav"><a href="module-Router.html#.Entity">Entity</a></li><li data-type="method" id="Router-Get-nav"><a href="module-Router.html#.Get">Get</a></li><li data-type="method" id="Router-Patch-nav"><a href="module-Router.html#.Patch">Patch</a></li><li data-type="method" id="Router-Post-nav"><a href="module-Router.html#.Post">Post</a></li><li data-type="method" id="Router-Put-nav"><a href="module-Router.html#.Put">Put</a></li><li data-type="method" id="Router-Responder-nav"><a href="module-Router.html#.Responder">Responder</a></li></ul></li></ul>
+  </nav>
+
+  <div id="main">
+    
+      <h1 class="page-title">
+        Router
+      </h1>
+    
+
+    
+
+<section>
+  <header>
+    
+      
+  </header>
+
+  <article>
+    <div class="container-overview">
+      
+        
+
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+
+<h4 class="name" id=".@Next">
+  <span class="type-signature">(static) </span>@Next<span class="type-signature"> :Express.NextFunction</span>
+</h4>
+
+
+
+
+  <div class="description">
+    <p>This decorator is used to get the Express's Response when using an <a href="module-Router.html#.Action">@Action</a>.</p>
+<p>For an example usage of <a href="module-Router.html#.@Next">@Next</a>. Check <a href="module-Router.html#.Get">@Get</a></p>
+  </div>
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Parameters.js.html">Router/Parameters.js</a>, <a href="Router_Parameters.js.html#line29">line 29</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+          
+        
+            
+
+<h4 class="name" id=".@Request">
+  <span class="type-signature">(static) </span>@Request<span class="type-signature"> :Express.Request</span>
+</h4>
+
+
+
+
+  <div class="description">
+    <p>This decorator is used to get the Express's Request when using an <a href="module-Router.html#.Action">@Action</a>.</p>
+<p>For an example usage of <a href="module-Router.html#.@Request">@Request</a>. Check <a href="module-Router.html#.Get">@Get</a></p>
+  </div>
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Parameters.js.html">Router/Parameters.js</a>, <a href="Router_Parameters.js.html#line9">line 9</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+          
+        
+            
+
+<h4 class="name" id=".@Response">
+  <span class="type-signature">(static) </span>@Response<span class="type-signature"> :Express.Response</span>
+</h4>
+
+
+
+
+  <div class="description">
+    <p>This decorator is used to get the Express's Response when using an <a href="module-Router.html#.Action">@Action</a>.</p>
+<p>For an example usage of <a href="module-Router.html#.@Response">@Response</a>. Check <a href="module-Router.html#.Get">@Get</a></p>
+  </div>
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Parameters.js.html">Router/Parameters.js</a>, <a href="Router_Parameters.js.html#line19">line 19</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+          
+        
+    
+
+    
+      <h3 class="subsection-title">Methods</h3>
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Action">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Action">
+      <span class="type-signature">(static) </span>Action<span class="signature">(path<span class="signature-attributes">non-null</span>, middlewares<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define an action.
+Actions are <strong>automatically</strong> injected.</p>
+<p>All the actions must be in <code>src/actions</code> and to have the <code>@Action</code> decorator.</p>
+<p>The middlewares can be <a href="module-Injector-Middleware.html">Class Middlewares (Injected)</a>
+as strings or function middlewares.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>path</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+
+            
+
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>The path of the router</p>
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>middlewares</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;(string|function())>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>Middlewares</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Action.js.html">Router/Action.js</a>, <a href="Router_Action.js.html#line18">line 18</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Action-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Action-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Action">@Action</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Router.html#.Action">@Action</a>('/path', ['ClassMiddleware', functionMiddleware])
+export default class ActionName {
+
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Delete">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Delete">
+      <span class="type-signature">(static) </span>Delete<span class="signature">(child<span class="signature-attributes">opt</span>, middlewares<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define a DELETE Route.</p>
+<p>The middlewares can be <a href="module-Injector-Middleware.html">Class Middlewares (Injected)</a>
+as strings or function middlewares.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+        <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>child</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              /
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>The path of the route (This will have as prefix the Action's path)</p>
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>middlewares</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;(string|function())>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Middlewares</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line164">line 164</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Delete-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Delete-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Delete">@Delete</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Router.html#.Action">@Action</a>('/path', ['ClassMiddleware', functionMiddleware])
+export default class ActionName {
+   <a href="module-Injector.html#.Retrive">@Retrive</a>('Responder.Name')
+   private <a href="module-Router.html#.Responder">responder</a>?: <a href="module-Router.html#.Responder">ResponderName</a>;
+
+   // The url will be /api/path/sub-path/:id (where :id is a path parameter)
+   <a href="module-Router.html#.Delete">@Delete</a>('/sub-path/:id', ['SubPathMiddleware'])
+   public deleteItem(
+     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Response">@Response</a> res: Response
+   ): Promise&lt;any> {
+     return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">success</a>(res);
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Domain">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Domain">
+      <span class="type-signature">(static) </span>Domain<span class="signature">(name<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define a Domain.
+Domain classes are <strong>automatically</strong> injected.</p>
+<p>All the Domain classes must be in <code>src/domain</code> and they must have <a href="module-Injector.html#.Inject">@Inject</a></p>
+<p>For an example on how the domain is used, check the <a href="module-Router.html#.Post">example from @Post</a>.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>name</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          <p>The name of the domain (This will have as prefix <code>Domain.</code>)</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Domain.js.html">Router/Domain.js</a>, <a href="Router_Domain.js.html#line7">line 7</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Domain-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Domain-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Domain">@Domain</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Injector.html#.Inject">@Inject</a>
+<a href="module-Router.html#.Domain">@Domain</a>('Name') // This will be accessed as 'Domain.Name'
+export default class DomainName {
+   public async saveUser(name: string) {
+     ...
+     return {
+       userId: '123'
+     };
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Entity">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Entity">
+      <span class="type-signature">(static) </span>Entity<span class="signature">(name<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define an Entity.
+Entities are <strong>automatically</strong> injected.</p>
+<p>All the Entities must be in <code>src/domain/entities</code> and they must have <a href="module-Injector.html#.Inject">@Inject</a></p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>name</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          <p>The name of the entity (This will have as prefix <code>Entity.</code>)</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Entity.js.html">Router/Entity.js</a>, <a href="Router_Entity.js.html#line7">line 7</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Entity-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Entity-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Entity">@Entity</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code>// This will be accessed as 'Entity.Name' but most of the ORMs such as Mongoose
+// keeps an instance of the model, e.g. mongoose.models
+<a href="module-Injector.html#.Inject">@Inject</a>
+<a href="module-Router.html#.Entity">@Entity</a>('Name')
+export default class UserEntity implements <a href="module-Injector-InjectedEntity.html">InjectedEntity</a> {
+   <a href="module-Injector.html#.Retrive">@Retrive</a>('Mongoose')
+   private mongoose?: MongooseClass;
+
+   public async <a href="module-Injector-InjectedEntity.html#.onLoad">onLoad</a>(): Promise&lt;void> {
+     if (!this.mongoose) {
+       return;
+     }
+
+     const { ObjectId } = Schema as any;
+
+     this.mongoose.model(
+       'User',
+       new Schema({
+         id: ObjectId,
+         email: {
+           type: String,
+           min: 3,
+           max: 255,
+           required: true
+         },
+         password: {
+           type: String,
+           min: 8,
+           required: true
+         }
+       })
+     );
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Get">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Get">
+      <span class="type-signature">(static) </span>Get<span class="signature">(child<span class="signature-attributes">opt</span>, middlewares<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define a GET Route.</p>
+<p>The middlewares can be <a href="module-Injector-Middleware.html">Class Middlewares (Injected)</a>
+as strings or function middlewares.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+        <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>child</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              /
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>The path of the route (This will have as prefix the Action's path)</p>
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>middlewares</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;(string|function())>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Middlewares</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line43">line 43</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Get-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Get-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Get">@Get</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Router.html#.Action">@Action</a>('/path', ['ClassMiddleware', functionMiddleware])
+export default class ActionName {
+   <a href="module-Injector.html#.Retrive">@Retrive</a>('Responder.Name')
+   private <a href="module-Router.html#.Responder">responder</a>?: <a href="module-Router.html#.Responder">ResponderName</a>;
+
+   <a href="module-Router.html#.Get">@Get</a>('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
+   public findAll(
+     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Response">@Response</a> res: Response
+   ): Promise&lt;any> {
+     return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">success</a>(res);
+   }
+
+   // The url will be /api/path/sub-path/:id (where :id is a path parameter)
+   <a href="module-Router.html#.Get">@Get</a>('/sub-path/:id', ['SubPathMiddleware'])
+   public findById(
+     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Response">@Response</a> res: Response
+   ): Promise&lt;any> {
+     return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">success</a>(res);
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Patch">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Patch">
+      <span class="type-signature">(static) </span>Patch<span class="signature">(child<span class="signature-attributes">opt</span>, middlewares<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define a PATCH Route.</p>
+<p>The middlewares can be <a href="module-Injector-Middleware.html">Class Middlewares (Injected)</a>
+as strings or function middlewares.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+        <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>child</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              /
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>The path of the route (This will have as prefix the Action's path)</p>
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>middlewares</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;(string|function())>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Middlewares</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line136">line 136</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Patch-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Patch-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Patch">@Patch</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Router.html#.Action">@Action</a>('/path', ['ClassMiddleware', functionMiddleware])
+export default class ActionName {
+   <a href="module-Injector.html#.Retrive">@Retrive</a>('Responder.Name')
+   private <a href="module-Router.html#.Responder">responder</a>?: <a href="module-Router.html#.Responder">ResponderName</a>;
+
+   // The url will be /api/path/sub-path/:id (where :id is a path parameter)
+   <a href="module-Router.html#.Patch">@Patch</a>('/sub-path/:id', ['SubPathMiddleware'])
+   public updateItem(
+     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Response">@Response</a> res: Response
+   ): Promise&lt;any> {
+     return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">success</a>(res);
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Post">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Post">
+      <span class="type-signature">(static) </span>Post<span class="signature">(child<span class="signature-attributes">opt</span>, middlewares<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define a POST Route.</p>
+<p>The middlewares can be <a href="module-Injector-Middleware.html">Class Middlewares (Injected)</a>
+as strings or function middlewares.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+        <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>child</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              /
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>The path of the route (This will have as prefix the Action's path)</p>
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>middlewares</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;(string|function())>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Middlewares</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line78">line 78</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Post-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Post-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Post">@Post</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Router.html#.Action">@Action</a>('/path', ['ClassMiddleware', functionMiddleware])
+export default class ActionName {
+   <a href="module-Injector.html#.Retrive">@Retrive</a>('Responder.Name')
+   private <a href="module-Router.html#.Responder">responder</a>?: <a href="module-Router.html#.Responder">ResponderName</a>;
+
+   <a href="module-Injector.html#.Retrive">@Retrive</a>('Domain.Name')
+   private <a href="module-Router.html#.Domain">domain</a>?: <a href="module-Router.html#.Domain">DomainName</a>;
+
+   <a href="module-Router.html#.Post">@Post</a>('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
+   public saveItem(
+     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Response">@Response</a> res: Response
+   ): Promise&lt;any> {
+     const { userId } = (
+       await this.<a href="module-Router.html#.Domain">domain</a>!.<a href="module-Router.html#.Domain">saveUser</a>('Some Name')
+     );
+     return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">created</a>(res, userId);
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Put">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Put">
+      <span class="type-signature">(static) </span>Put<span class="signature">(child<span class="signature-attributes">opt</span>, middlewares<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define a PUT Route.</p>
+<p>The middlewares can be <a href="module-Injector-Middleware.html">Class Middlewares (Injected)</a>
+as strings or function middlewares.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+        <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>child</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              /
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>The path of the route (This will have as prefix the Action's path)</p>
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>middlewares</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Array.&lt;(string|function())>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Middlewares</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line106">line 106</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Put-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Put-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Put">@Put</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Router.html#.Action">@Action</a>('/path', ['ClassMiddleware', functionMiddleware])
+export default class ActionName {
+   <a href="module-Injector.html#.Retrive">@Retrive</a>('Responder.Name')
+   private <a href="module-Router.html#.Responder">responder</a>?: <a href="module-Router.html#.Responder">ResponderName</a>;
+
+   // The url will be /api/path/sub-path/:id (where :id is a path parameter)
+   <a href="module-Router.html#.Put">@Put</a>('/sub-path/:id', ['SubPathMiddleware'])
+   public replaceItem(
+     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Response">@Response</a> res: Response
+   ): Promise&lt;any> {
+     return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">success</a>(res);
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#.Responder">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id=".Responder">
+      <span class="type-signature">(static) </span>Responder<span class="signature">(name<span class="signature-attributes">non-null</span>)</span><span class="type-signature"> &rarr; {any}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>This decorator is used to define a Responder.
+Responders are <strong>automatically</strong> injected.</p>
+<p>All the responders must be in <code>src/responders</code> and they must have <a href="module-Injector.html#.Inject">@Inject</a></p>
+<p>For an example on how the responder is used, check the <a href="module-Router.html#.Post">example from @Post</a>.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>name</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          <p>The name of the responder (This will have as prefix <code>Responder.</code>)</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Responder.js.html">Router/Responder.js</a>, <a href="Router_Responder.js.html#line7">line 7</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#Responder-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="Responder-examples">Example</h5>
+    
+  <p class="code-caption">
+    Example usage of <a href="module-Router.html#.Responder">@Responder</a>.
+  </p>
+
+
+  <pre class="prettyprint"><code><a href="module-Injector.html#.Inject">@Inject</a>
+<a href="module-Router.html#.Responder">@Responder</a>('Name') // This will be accessed as 'Responder.Name'
+export default class ResponderName {
+   public success(res: Response) {
+     return res.status(200).json({
+       success: true
+     });
+   }
+
+   public created(res: Response, userId: string) {
+     return res.status(201).json({
+       success: true,
+       userId
+     });
+   }
+}</code></pre>
+
+
+  </div>
+
+
+      
+    
+
+    
+
+    
+  </article>
+</section>
+
+
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+
+</body>
+</html>

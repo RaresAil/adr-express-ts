@@ -43,7 +43,7 @@ export interface Middleware {
  * @returns {Promise<any>}
  *
  * @example <caption>Example usage of [Middleware]{@link module:Injector~Middleware}.</caption>
- * [\@Inject]{@link module:Injector.@Inject}
+ * [\@Inject]{@link module:Injector.Inject}
  * export default class AuthentificationMiddleware implements [Middleware]{@link module:Injector~Middleware} {
  *    public async [middleware]{@link module:Injector~Middleware.middleware}(
  *      req: Request,
@@ -75,8 +75,8 @@ export interface Middleware {
  * @returns {Promise<void>}
  *
  * @example <caption>Example usage of [InjectedEntity]{@link module:Injector~InjectedEntity}.</caption>
- * [\@Inject]{@link module:Injector.@Inject}
- * [\@Entity]{@link module:Router.@Entity}('Name')
+ * [\@Inject]{@link module:Injector.Inject}
+ * [\@Entity]{@link module:Router.Entity}('Name')
  * export default class ClassName implements [InjectedEntity]{@link module:Injector~InjectedEntity} {
  *    public async [onLoad]{@link module:Injector~InjectedEntity.onLoad}(): Promise<void> {
  *
@@ -104,7 +104,7 @@ export interface Middleware {
  * @returns {Promise<void>}
  *
  * @example <caption>Example usage of [InjectedClass]{@link module:Injector~InjectedClass}.</caption>
- * [\@Inject]{@link module:Injector.@Inject}
+ * [\@Inject]{@link module:Injector.Inject}
  * export default class ClassName implements [InjectedClass]{@link module:Injector~InjectedClass} {
  *    public async [onReady]{@link module:Injector~InjectedClass.onReady}(): Promise<void> {
  *

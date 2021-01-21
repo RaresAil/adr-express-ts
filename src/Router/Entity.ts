@@ -4,18 +4,20 @@ import ExpressTS from '../app/ExpressTS';
  * This decorator is used to define an Entity.
  * Entities are **automatically** injected.
  *
- * All the Entities must be in ``src/domain/entities`` and they must have [\@Inject]{@link module:Injector.@Inject}
+ * All the Entities must be in ``src/domain/entities`` and they must have [\@Inject]{@link module:Injector.Inject}
  *
  * @static
  * @return {any}
+ * @method Entity
+ * @memberof module:Router
  * @param {!string} name The name of the entity (This will have as prefix ``Entity.``)
- * @example <caption>Example usage of [\@Entity]{@link module:Router.@Entity}.</caption>
+ * @example <caption>Example usage of [\@Entity]{@link module:Router.Entity}.</caption>
  * // This will be accessed as 'Entity.Name' but most of the ORMs such as Mongoose
  * // keeps an instance of the model, e.g. mongoose.models
- * [\@Inject]{@link module:Injector.@Inject}
- * [\@Entity]{@link module:Router.@Entity}('Name')
+ * [\@Inject]{@link module:Injector.Inject}
+ * [\@Entity]{@link module:Router.Entity}('Name')
  * export default class UserEntity implements [InjectedEntity]{@link module:Injector~InjectedEntity} {
- *    [\@Retrive]{@link module:Injector.@Retrive}('Mongoose')
+ *    [\@Retrive]{@link module:Injector.Retrive}('Mongoose')
  *    private mongoose?: MongooseClass;
  *
  *    public async [onLoad]{@link module:Injector~InjectedEntity.onLoad}(): Promise<void> {

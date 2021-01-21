@@ -6,14 +6,17 @@
   "source": {
     "include": ["lib", "package.json", "README.md"],
     "includePattern": ".js$",
-    "excludePattern": "(node_modules/|docs)"
+    "excludePattern": "(node_modules/|docs/)"
   },
   "plugins": ["plugins/markdown", "node_modules/jsdoc-escape-at"],
   "templates": {
-    "referenceTitle": "Express ADR Dependency Injection Typescript",
+    "referenceTitle": "ADR Express Typescript",
     "disableSort": false,
     "collapse": true,
-    "resources": {}
+    "resources": {
+      "GitHub": "https://github.com/RaresAil/adr-express-ts",
+      "NPM": "https://github.com/RaresAil/adr-express-ts"
+    }
   },
   "opts": {
     "destination": "./docs/",

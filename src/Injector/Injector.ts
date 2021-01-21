@@ -3,7 +3,9 @@ import ExpressTS from '../app/ExpressTS';
 
 /**
  * @abstract
+ * @class
  * @classdesc The injector class. This class can't be instantiated.
+ * @memberof module:Injector
  */
 export default abstract class Injector {
   private static instances: Instances = {};
@@ -16,10 +18,13 @@ export default abstract class Injector {
 
   /**
    * This function is used to get an injected object/variable.
-   * If you have a class, you can use the [\@Retrive]{@link module:Injector.@Retrive}
+   * If you have a class, you can use the [\@Retrive]{@link module:Injector.Retrive}
    * decorator
    * @param {string} name The name of the object/variable.
    * @return {T | null}
+   * @example <caption>Example usage of [Injector.get]{@link module:Injector.Injector.get}.</caption>
+   * [Injector.get]{@link module:Injector.Injector.get}<string>('name');
+   * [Injector.get]{@link module:Injector.Injector.get}<Configuration>('Configuration');
    */
   public static get<T>(name: string): T | null {
     if (!this.instances[name]?.instance) {

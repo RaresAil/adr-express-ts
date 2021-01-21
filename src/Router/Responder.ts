@@ -4,15 +4,17 @@ import ExpressTS from '../app/ExpressTS';
  * This decorator is used to define a Responder.
  * Responders are **automatically** injected.
  *
- * All the responders must be in ``src/responders`` and they must have [\@Inject]{@link module:Injector.@Inject}
+ * All the responders must be in ``src/responders`` and they must have [\@Inject]{@link module:Injector.Inject}
  *
- * For an example on how the responder is used, check the [example from \@Post]{@link module:Router.@Post}.
+ * For an example on how the responder is used, check the [example from \@Post]{@link module:Router.Post}.
  * @static
  * @return {any}
+ * @method Responder
+ * @memberof module:Router
  * @param {!string} name The name of the responder (This will have as prefix ``Responder.``)
- * @example <caption>Example usage of [\@Responder]{@link module:Router.@Responder}.</caption>
- * [\@Inject]{@link module:Injector.@Inject}
- * [\@Responder]{@link module:Router.@Responder}('Name') // This will be accessed as 'Responder.Name'
+ * @example <caption>Example usage of [\@Responder]{@link module:Router.Responder}.</caption>
+ * [\@Inject]{@link module:Injector.Inject}
+ * [\@Responder]{@link module:Router.Responder}('Name') // This will be accessed as 'Responder.Name'
  * export default class ResponderName {
  *    public success(res: Response) {
  *      return res.status(200).json({
