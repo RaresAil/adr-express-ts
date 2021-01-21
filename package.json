@@ -42,7 +42,8 @@
     "generate-docs": "rm -rf ./docs/ && npm run build && node_modules/.bin/jsdoc --configure .jsdoc.json --verbose && node ./scripts/build-docs.js",
     "build": "npm run lint && rm -rf ./lib/ && tsc -p .",
     "lint": "eslint src/**/*.ts",
-    "read:docs": "serve ./docs"
+    "read:docs": "serve ./docs",
+    "version": "npm run build"
   },
   "repository": {
     "type": "git",
