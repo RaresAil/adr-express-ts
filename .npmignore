@@ -1,6 +1,9 @@
-src/
 .github/
+docs/
+src/
+scripts/
+.eslintignore
 .eslintrc.json
-tsconfig.json
 .gitignore
-.scripts
+.jsdoc.json
+tsconfig.json
