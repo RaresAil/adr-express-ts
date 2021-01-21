@@ -29,7 +29,6 @@ export default abstract class ExpressTS {
   private static domains: DomainList = {};
   private static actions: Actions = {};
 
-  // #region Injector
   static inject(target: any, source: Function, type: InjectType) {
     target.prototype = source.prototype;
     target[this.symbols.name] = source.name;
@@ -43,7 +42,6 @@ export default abstract class ExpressTS {
   static clearInjections() {
     this.injections = {};
   }
-  // #endregion
 
   static setData(name: string, value: any, type: DataType) {
     this[type] = {

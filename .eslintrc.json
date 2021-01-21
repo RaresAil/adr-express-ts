@@ -21,6 +21,13 @@
       }
     ],
     "indent": "off",
-    "new-cap": "off"
+    "new-cap": "off",
+    "operator-linebreak": [
+      "error",
+      "after",
+      { "overrides": { "?": "before", ":": "before" } }
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   Request as ExpressRequest,
   Response as ExpressResponse,

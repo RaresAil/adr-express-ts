@@ -8,13 +8,14 @@ export const AsyncMiddleware = (middleware: any, errorHandler: ErroHandler) => (
   next: NextFunction
 ) =>
   Promise.resolve(middleware(req, res, next)).catch((e) => {
-    return errorHandler(req, res, e);
+    return errorHandler(req, res, next, e);
   });
 
 export const AsyncRoute = (route: any, errorHandler: ErroHandler) => (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) =>
-  Promise.resolve(route(req, res)).catch((e) => {
-    return errorHandler(req, res, e);
+  Promise.resolve(route(req, res, next)).catch((e) => {
+    return errorHandler(req, res, next, e);
   });

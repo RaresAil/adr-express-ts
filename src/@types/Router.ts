@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export enum ActionMethods {
   GET = 'get',
   PUT = 'put',
