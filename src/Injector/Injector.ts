@@ -1,4 +1,5 @@
 import { InjectType, Instances } from '../@types/Injector';
+import { Configuration } from '../Configuration';
 import ExpressTS from '../app/ExpressTS';
 
 /**
@@ -15,6 +16,16 @@ export default abstract class Injector {
    * @hideconstructor
    */
   private constructor() {}
+
+  /**
+   * This function is used to setup the configuration of the server and
+   * the root directory for the application.
+   *
+   * @param {Configuration} config The configuration of the server
+   */
+  public static setup(config: Configuration) {
+    Injector.inject('Configuration', config, InjectType.Variable);
+  }
 
   /**
    * This function is used to get an injected object/variable.

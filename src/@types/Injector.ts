@@ -24,7 +24,7 @@ export interface Middleware {
  * Interface for classes that are middlewares.
  *
  * @abstract
- * @classdesc The Middleware interface. This class can't be instantiated.
+ * @classdesc The Middleware interface. This is an interface and can't be instantiated.
  * @class ~Middleware
  * @hideconstructor
  * @memberof module:Injector
@@ -62,7 +62,7 @@ export interface Middleware {
  * @class ~InjectedEntity
  * @hideconstructor
  * @abstract
- * @classdesc The InjectedEntity interface. This class can't be instantiated.
+ * @classdesc The InjectedEntity interface. This is an interface and can't be instantiated.
  * @memberof module:Injector
  */
 /**
@@ -90,7 +90,7 @@ export interface Middleware {
  * @class ~InjectedClass
  * @hideconstructor
  * @abstract
- * @classdesc The InjectedClass interface. This class can't be instantiated.
+ * @classdesc The InjectedClass interface. This is an interface and can't be instantiated.
  * @memberof module:Injector
  */
 

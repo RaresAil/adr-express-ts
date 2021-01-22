@@ -159,7 +159,7 @@ Injector.inject(
       log: console.log,
       error: console.error
     },
-    renderEngine: {
+    staticFiles: {
       path: '/',
       directory: ['public']
     }

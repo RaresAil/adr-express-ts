@@ -22,7 +22,7 @@ import {
   NotFoundHandler,
   Configuration,
   ErroHandler,
-  RenderEngine
+  StaticFiles
 } from '../Configuration';
 
 @Inject
@@ -482,17 +482,17 @@ export default class Router {
       });
     } catch {}
 
-    // Define the Render Engine
-    if (this.config && this.config.renderEngine && this.getAbsolutePath) {
-      const { renderEngine } = this.config;
-      if (!Array.isArray(renderEngine)) {
-        this.injectRenderEngine(renderEngine);
+    // Define the Static Files
+    if (this.config?.staticFiles && this.getAbsolutePath) {
+      const { staticFiles } = this.config;
+      if (!Array.isArray(staticFiles)) {
+        this.injectStaticFiles(staticFiles);
       } else {
-        renderEngine.forEach((engine) => this.injectRenderEngine(engine));
+        staticFiles.forEach((engine) => this.injectStaticFiles(engine));
       }
     }
 
-    // Define default 404 error for render engine
+    // Define default 404 error for static files
     try {
       this.lock?.acquire('app-middleware-injector', (done) => {
         try {
@@ -519,26 +519,24 @@ export default class Router {
     } catch {}
   }
 
-  private injectRenderEngine(renderEngine: RenderEngine) {
+  private injectStaticFiles(staticFiles: StaticFiles) {
     const router = ExpressRouter();
     router.use(
-      `${`${renderEngine.path ?? '/'}`.trim()}`,
-      express.static(this.getAbsolutePath(...renderEngine.directory))
+      `${`${staticFiles.path ?? '/'}`.trim()}`,
+      express.static(this.getAbsolutePath(...staticFiles.directory))
     );
-    router.get(`${`${renderEngine.path ?? '/'}`.trim()}*`, (req, res) =>
-      res.sendFile(
-        this.getAbsolutePath(...renderEngine.directory, 'index.html')
-      )
+    router.get(`${`${staticFiles.path ?? '/'}`.trim()}*`, (req, res) =>
+      res.sendFile(this.getAbsolutePath(...staticFiles.directory, 'index.html'))
     );
 
     try {
       this.lock?.acquire('app-middleware-injector', (done) => {
         try {
-          if (!renderEngine.subdomain) {
+          if (!staticFiles.subdomain) {
             this.application?.use(router);
           } else {
             this.application?.use(
-              this.subdomainMiddleware(renderEngine.subdomain, router)
+              this.subdomainMiddleware(staticFiles.subdomain, router)
             );
           }
         } catch {}
@@ -546,7 +544,7 @@ export default class Router {
       });
     } catch {}
 
-    this.debugLog('Render Engine loaded %o', renderEngine.path);
+    this.debugLog('Static Files Route loaded %o', staticFiles.path);
   }
 
   private subdomainMiddleware = (subdomain: string, fn: Function) => (
