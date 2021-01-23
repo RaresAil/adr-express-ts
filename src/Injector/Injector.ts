@@ -18,8 +18,7 @@ export default abstract class Injector {
   private constructor() {}
 
   /**
-   * This function is used to setup the configuration of the server and
-   * the root directory for the application.
+   * This function is used to setup the configuration of the server
    *
    * @param {Configuration} config The configuration of the server
    */
@@ -114,20 +113,18 @@ export default abstract class Injector {
     const entities = Object.values(this.instances).filter(
       (x: any) => x.type === InjectType.Class && x.instance && x.instance.onLoad
     );
-    let promises: Promise<void>[] = [];
-    entities.forEach((x: any) => {
-      promises = [...promises, x.instance.onLoad()];
-    });
+    const promises: Promise<void>[] = entities.map((entity: any) =>
+      entity.instance.onLoad()
+    );
 
     await Promise.all(promises);
 
-    const classes = Object.values(this.instances).filter(
-      (x: any) =>
-        x.type === InjectType.Class && x.instance && x.instance.onReady
-    );
-    classes.forEach((x: any) => {
-      x.instance.onReady();
-    });
+    Object.values(this.instances)
+      .filter(
+        (x: any) =>
+          x.type === InjectType.Class && x.instance && x.instance.onReady
+      )
+      .map((x: any) => x.instance.onReady());
 
     ExpressTS.clearInjections();
   }

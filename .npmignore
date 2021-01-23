@@ -1,7 +1,7 @@
 .github/
 docs/
-src/
 scripts/
+src/
 .eslintignore
 .eslintrc.json
 .gitignore

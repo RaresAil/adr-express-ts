@@ -106,5 +106,8 @@ dist
 # Build directory
 lib/
 
+# Test Env
+scripts/env/
+
 # MacOS
 .DS_Store

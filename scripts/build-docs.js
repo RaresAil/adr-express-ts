@@ -19,7 +19,7 @@ const imagesToCopy = ['cli-q-2.png', 'cli-q-3.png', 'cli-q-final.png'];
     fs.mkdirSync(path.join(location, 'scripts', 'resources'));
   }
 
-  imagesToCopy.forEach((image) => {
+  imagesToCopy.map((image) => {
     fs.copyFileSync(
       path.join(__dirname, 'resources', image),
       path.join(location, 'scripts', 'resources', image)
@@ -27,7 +27,7 @@ const imagesToCopy = ['cli-q-2.png', 'cli-q-3.png', 'cli-q-final.png'];
   });
 
   const files = fs.readdirSync(location);
-  files.forEach((file) => {
+  files.map((file) => {
     if (!file?.endsWith('.html')) {
       return;
     }

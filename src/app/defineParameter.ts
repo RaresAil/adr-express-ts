@@ -8,7 +8,7 @@ export default (payload: any) => (
 ) => {
   const { name } = target.constructor;
   let params: FunctionParamData[] =
-    (ExpressTS.getData(name, 'functionParams') as FunctionParamData[]) || [];
+    (ExpressTS.getData(name, 'functionParams') as FunctionParamData[]) ?? [];
 
   params = [
     ...params,

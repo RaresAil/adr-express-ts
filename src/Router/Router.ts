@@ -78,7 +78,7 @@ export default class Router {
 
   private injectMiddlewares() {
     if (this.middlewares) {
-      this.middlewares.forEach((middleware) => {
+      this.middlewares.map((middleware) => {
         if (!this.lock) {
           throw new Error('The async-lock instance is not created!');
         }
@@ -128,7 +128,7 @@ export default class Router {
   }
 
   private injectEntities() {
-    fs.readdirSync(this.getAbsolutePath('domain', 'entities')).forEach(
+    fs.readdirSync(this.getAbsolutePath('domain', 'entities')).map(
       (name: string) => {
         try {
           let ent;
@@ -169,7 +169,7 @@ export default class Router {
   }
 
   private injectDomains() {
-    fs.readdirSync(this.getAbsolutePath('domain')).forEach((name: string) => {
+    fs.readdirSync(this.getAbsolutePath('domain')).map((name: string) => {
       try {
         let dom;
 
@@ -209,45 +209,43 @@ export default class Router {
   }
 
   private injectResponders() {
-    fs.readdirSync(this.getAbsolutePath('responders')).forEach(
-      (name: string) => {
+    fs.readdirSync(this.getAbsolutePath('responders')).map((name: string) => {
+      try {
+        let resp;
+
         try {
-          let resp;
-
-          try {
-            resp = require(this.getAbsolutePath('responders', name));
-          } catch {
-            return;
-          }
-
-          if (!resp?.default || !this.lock) {
-            return;
-          }
-
-          const target = resp.default;
-          if (
-            ExpressTS.getInjectedField(target, 'type') !== 'class' ||
-            !ExpressTS.getInjectedField(target, 'name')
-          ) {
-            return;
-          }
-
-          const responderName = ExpressTS.getData(
-            ExpressTS.getInjectedField(target, 'name'),
-            'responders'
-          );
-
-          this.debugLog('Responder loaded %o', responderName);
-          Injector.inject(`Responder.${responderName}`, target);
-        } catch (e) {
-          this.debugError(e);
+          resp = require(this.getAbsolutePath('responders', name));
+        } catch {
+          return;
         }
+
+        if (!resp?.default || !this.lock) {
+          return;
+        }
+
+        const target = resp.default;
+        if (
+          ExpressTS.getInjectedField(target, 'type') !== 'class' ||
+          !ExpressTS.getInjectedField(target, 'name')
+        ) {
+          return;
+        }
+
+        const responderName = ExpressTS.getData(
+          ExpressTS.getInjectedField(target, 'name'),
+          'responders'
+        );
+
+        this.debugLog('Responder loaded %o', responderName);
+        Injector.inject(`Responder.${responderName}`, target);
+      } catch (e) {
+        this.debugError(e);
       }
-    );
+    });
   }
 
   private injectActions() {
-    fs.readdirSync(this.getAbsolutePath('actions')).forEach((name: string) => {
+    fs.readdirSync(this.getAbsolutePath('actions')).map((name: string) => {
       try {
         const ac = require(this.getAbsolutePath('actions', name));
         if (!ac || !ac.default || !this.lock) {
@@ -265,7 +263,7 @@ export default class Router {
 
         const action = ExpressTS.getData(targetName, 'actions') as Action;
         const funcParams =
-          (ExpressTS.getData(targetName, 'functionParams') as any[]) || [];
+          (ExpressTS.getData(targetName, 'functionParams') as any[]) ?? [];
         if (!action?.target || action?.functions?.length <= 0) {
           return;
         }
@@ -287,7 +285,7 @@ export default class Router {
         const router = ExpressRouter();
 
         if (action.middlewares && Array.isArray(action.middlewares)) {
-          action.middlewares.forEach((middleware) => {
+          action.middlewares.map((middleware) => {
             if (!this.lock) {
               return;
             }
@@ -336,7 +334,7 @@ export default class Router {
           });
         }
 
-        action.functions.forEach((functionData) => {
+        action.functions.map((functionData) => {
           if (
             !router[functionData.method] ||
             typeof router[functionData.method] !== 'function'
@@ -354,8 +352,8 @@ export default class Router {
             .sort((a, b) => a.index - b.index);
 
           const paramsInfo: string[] = [];
-          paramsInfoRaw.forEach((x) => {
-            paramsInfo[x.index] = x.target;
+          paramsInfoRaw.map(({ index: paramPosition, target: paramTarget }) => {
+            paramsInfo[paramPosition] = paramTarget;
           });
 
           this.debugLog(
@@ -488,7 +486,12 @@ export default class Router {
       if (!Array.isArray(staticFiles)) {
         this.injectStaticFiles(staticFiles);
       } else {
-        staticFiles.forEach((engine) => this.injectStaticFiles(engine));
+        [...staticFiles]
+          .sort(
+            (sfA, sfB) =>
+              (sfB.subdomain?.length ?? 0) - (sfA.subdomain?.length ?? 0)
+          )
+          .map((engine) => this.injectStaticFiles(engine));
       }
     }
 
@@ -544,7 +547,13 @@ export default class Router {
       });
     } catch {}
 
-    this.debugLog('Static Files Route loaded %o', staticFiles.path);
+    this.debugLog(
+      `Static Files Route loaded %o ${
+        staticFiles.subdomain ? 'for subdomain %o' : ''
+      }`,
+      staticFiles.path,
+      staticFiles.subdomain ?? ''
+    );
   }
 
   private subdomainMiddleware = (subdomain: string, fn: Function) => (
