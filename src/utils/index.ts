@@ -1,21 +1,28 @@
 import { Request, Response, NextFunction } from 'express';
+import { RouteCallback } from '../@types/Router';
 
 import { ErroHandler } from '../Configuration';
 
-export const AsyncMiddleware = (middleware: any, errorHandler: ErroHandler) => (
+export const AsyncCallback = (fn: RouteCallback, errorHandler: ErroHandler) => (
   req: Request,
   res: Response,
   next: NextFunction
 ) =>
-  Promise.resolve(middleware(req, res, next)).catch((e) => {
+  Promise.resolve(fn(req, res, next)).catch((e) => {
     return errorHandler(req, res, next, e);
   });
 
-export const AsyncRoute = (route: any, errorHandler: ErroHandler) => (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) =>
-  Promise.resolve(route(req, res, next)).catch((e) => {
-    return errorHandler(req, res, next, e);
-  });
+export const APIMiddleware = (
+  fn: RouteCallback,
+  prefix: string,
+  mode: 'api' | 'render'
+) => (req: Request, res: Response, next: NextFunction) => {
+  if (
+    (req.path.startsWith(prefix) && mode === 'api') ||
+    (!req.path.startsWith(prefix) && mode === 'render')
+  ) {
+    return fn(req, res, next);
+  }
+
+  return next();
+};

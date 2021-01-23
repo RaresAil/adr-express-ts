@@ -4,6 +4,14 @@ export interface StaticFiles {
   path: string;
   directory: string[];
   subdomain?: string;
+  middlewares?: (string | Function)[];
+}
+
+export interface StaticFilesSubdomain {
+  path: string;
+  directory: string[];
+  subdomain: string;
+  middlewares?: (string | Function)[];
 }
 
 export interface ErroHandler {
@@ -23,7 +31,7 @@ export interface Configuration {
   root: string;
   apiPrefix: string;
   debug: ConfigurationDebug;
-  staticFiles?: StaticFiles[] | StaticFiles;
+  staticFiles?: StaticFilesSubdomain[] | StaticFiles;
   errorHandler?: ErroHandler;
   notFoundHandler?: NotFoundHandler;
 }

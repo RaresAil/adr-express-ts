@@ -1,3 +1,9 @@
+import {
+  Request as ExpressRequest,
+  Response as ExpressResponse,
+  NextFunction as ExpressNext
+} from 'express';
+
 export enum ActionMethods {
   GET = 'get',
   PUT = 'put',
@@ -46,4 +52,8 @@ export interface DomainList {
 
 export interface EntityList {
   [key: string]: string;
+}
+
+export interface RouteCallback {
+  (req: ExpressRequest, res: ExpressResponse, next: ExpressNext): Promise<any>;
 }

@@ -12,12 +12,13 @@ import express, {
 } from 'express';
 
 import { Inject, Retrive, Injector } from '../Injector';
-import { Action, Middleware } from '../@types';
-import { AsyncMiddleware, AsyncRoute } from '../utils';
+import { Action, Middleware, RouteCallback } from '../@types';
+import { AsyncCallback, APIMiddleware } from '../utils';
 import ExpressTS from '../app/ExpressTS';
 import { getParamValue } from './Params';
 import {
   defaultNotFoundHandler,
+  StaticFilesSubdomain,
   defaultErrorHandler,
   NotFoundHandler,
   Configuration,
@@ -54,10 +55,19 @@ export default class Router {
     return path.join.apply(null, [this.config!.root, ...args]);
   }
 
+  private get APIPrefix() {
+    if (!this.config?.apiPrefix) {
+      throw new Error('The configuration is not Injected!');
+    }
+
+    const prefix = this.config.apiPrefix;
+    return prefix.startsWith('/') ? prefix : `/${prefix}`;
+  }
+
   constructor() {
     this.lock = new AsyncLock();
 
-    if (!this.config || !this.config.root) {
+    if (!this.config?.root || !this.config?.apiPrefix) {
       throw new Error('The configuration is not Injected!');
     }
 
@@ -93,30 +103,38 @@ export default class Router {
               if (mid) {
                 this.debugLog('Global Middleware loaded %o', middleware);
                 this.application?.use(
-                  AsyncMiddleware(
-                    async (
-                      req: ExpressRequest,
-                      res: ExpressResponse,
-                      next: NextFunction
-                    ) => {
-                      return await mid.middleware(req, res, next);
-                    },
-                    this.errorHandler
+                  APIMiddleware(
+                    AsyncCallback(
+                      async (
+                        req: ExpressRequest,
+                        res: ExpressResponse,
+                        next: NextFunction
+                      ) => {
+                        return await mid.middleware(req, res, next);
+                      },
+                      this.errorHandler
+                    ),
+                    this.APIPrefix,
+                    'api'
                   )
                 );
               }
             } else if (typeof middleware === 'function') {
               this.debugLog('Global Middleware loaded %o', middleware.name);
               this.application?.use(
-                AsyncMiddleware(
-                  async (
-                    req: ExpressRequest,
-                    res: ExpressResponse,
-                    next: NextFunction
-                  ) => {
-                    return await middleware(req, res, next);
-                  },
-                  this.errorHandler
+                APIMiddleware(
+                  AsyncCallback(
+                    async (
+                      req: ExpressRequest,
+                      res: ExpressResponse,
+                      next: NextFunction
+                    ) => {
+                      return await middleware(req, res, next);
+                    },
+                    this.errorHandler
+                  ),
+                  this.APIPrefix,
+                  'api'
                 )
               );
             }
@@ -272,16 +290,13 @@ export default class Router {
           return;
         }
 
-        const prefix = this.config.apiPrefix ?? '';
-        let apiPath = [prefix, action.path ?? ''].join('');
+        let apiPath = [this.APIPrefix, action.path ?? ''].join('');
 
         if (!apiPath || apiPath.trim() === '' || !action?.path) {
           return;
         }
 
-        apiPath = apiPath.startsWith('/')
-          ? apiPath.trim()
-          : `/${apiPath.trim()}`;
+        apiPath = apiPath.trim();
         const router = ExpressRouter();
 
         if (action.middlewares && Array.isArray(action.middlewares)) {
@@ -300,7 +315,7 @@ export default class Router {
                   if (mid) {
                     this.debugLog('Action Middleware loaded %o', middleware);
                     router.use(
-                      AsyncMiddleware(
+                      AsyncCallback(
                         async (
                           req: ExpressRequest,
                           res: ExpressResponse,
@@ -315,7 +330,7 @@ export default class Router {
                 } else if (typeof middleware === 'function') {
                   this.debugLog('Action Middleware loaded %o', middleware.name);
                   router.use(
-                    AsyncMiddleware(
+                    AsyncCallback(
                       async (
                         req: ExpressRequest,
                         res: ExpressResponse,
@@ -381,7 +396,7 @@ export default class Router {
 
                     if (mid) {
                       this.debugLog('Method Middleware loaded %o', middleware);
-                      ret = AsyncMiddleware(
+                      ret = AsyncCallback(
                         async (
                           req: ExpressRequest,
                           res: ExpressResponse,
@@ -397,7 +412,7 @@ export default class Router {
                       'Method Middleware loaded %o',
                       middleware.name
                     );
-                    ret = AsyncMiddleware(
+                    ret = AsyncCallback(
                       async (
                         req: ExpressRequest,
                         res: ExpressResponse,
@@ -421,7 +436,7 @@ export default class Router {
 
           middlewares = [
             ...middlewares,
-            AsyncRoute(
+            AsyncCallback(
               async (
                 req: ExpressRequest,
                 res: ExpressResponse,
@@ -463,8 +478,8 @@ export default class Router {
       this.lock?.acquire('app-middleware-injector', (done) => {
         try {
           this.application?.use(
-            this.config?.apiPrefix ?? '',
-            AsyncRoute(
+            this.APIPrefix,
+            AsyncCallback(
               async (
                 req: ExpressRequest,
                 res: ExpressResponse,
@@ -501,7 +516,7 @@ export default class Router {
         try {
           this.application?.use(
             '*',
-            AsyncRoute(
+            AsyncCallback(
               async (
                 req: ExpressRequest,
                 res: ExpressResponse,
@@ -522,13 +537,60 @@ export default class Router {
     } catch {}
   }
 
-  private injectStaticFiles(staticFiles: StaticFiles) {
+  private injectStaticFiles(staticFiles: StaticFiles | StaticFilesSubdomain) {
+    const staticPath = staticFiles.path.startsWith('/')
+      ? staticFiles.path.trim()
+      : `/${staticFiles.path.trim()}`;
     const router = ExpressRouter();
-    router.use(
-      `${`${staticFiles.path ?? '/'}`.trim()}`,
-      express.static(this.getAbsolutePath(...staticFiles.directory))
-    );
-    router.get(`${`${staticFiles.path ?? '/'}`.trim()}*`, (req, res) =>
+
+    const middlewares: RouteCallback[] = (staticFiles.middlewares ?? [])
+      .map((middleware) => {
+        if (typeof middleware === 'string') {
+          const mid = Injector.get<Middleware | undefined | null>(middleware);
+          if (!mid) {
+            return null;
+          }
+
+          this.debugLog('Static Files Middleware loaded %o', middleware);
+          return APIMiddleware(
+            AsyncCallback(
+              async (
+                req: ExpressRequest,
+                res: ExpressResponse,
+                next: NextFunction
+              ) => {
+                return await mid.middleware(req, res, next);
+              },
+              this.errorHandler
+            ),
+            this.APIPrefix,
+            'render'
+          );
+        } else if (typeof middleware === 'function') {
+          this.debugLog('Static Files Middleware loaded %o', middleware.name);
+          return APIMiddleware(
+            AsyncCallback(
+              async (
+                req: ExpressRequest,
+                res: ExpressResponse,
+                next: NextFunction
+              ) => {
+                return await middleware(req, res, next);
+              },
+              this.errorHandler
+            ),
+            this.APIPrefix,
+            'render'
+          );
+        }
+
+        return null;
+      })
+      .filter((m) => !!m) as RouteCallback[];
+
+    router.use(...middlewares);
+    router.use(express.static(this.getAbsolutePath(...staticFiles.directory)));
+    router.get('/*', (req, res) =>
       res.sendFile(this.getAbsolutePath(...staticFiles.directory, 'index.html'))
     );
 
@@ -536,9 +598,10 @@ export default class Router {
       this.lock?.acquire('app-middleware-injector', (done) => {
         try {
           if (!staticFiles.subdomain) {
-            this.application?.use(router);
+            this.application?.use(staticPath, router);
           } else {
             this.application?.use(
+              staticPath,
               this.subdomainMiddleware(staticFiles.subdomain, router)
             );
           }

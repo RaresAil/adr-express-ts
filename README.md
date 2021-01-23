@@ -9,6 +9,8 @@
 
 This package is a dependency injection for express with typescript using decorators and the [Action–Domain–Responder](https://en.wikipedia.org/wiki/Action–domain–responder) pattern.
 
+## THIS VERSION IS A PRE-RELEASE!! PLEASE WAIT UNTIL THE VERSION 1.0.0 IS RELEASED!
+
 ## Getting Started
 
 #### Create
