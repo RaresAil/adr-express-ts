@@ -83,7 +83,10 @@ export default class Router {
     this.injectResponders();
     this.injectEntities();
     this.injectDomains();
-    this.injectActions();
+    this.injectActions(this.getAbsolutePath('actions'), '');
+    this.injectPathErrors();
+    this.injectAllStaticFiles();
+    this.injectStaticFilesPathErrors();
   }
 
   private injectMiddlewares() {
@@ -262,11 +265,26 @@ export default class Router {
     });
   }
 
-  private injectActions() {
-    fs.readdirSync(this.getAbsolutePath('actions')).map((name: string) => {
+  private injectActions(actionsPathRoot: string, actionsPrefix: string) {
+    fs.readdirSync(actionsPathRoot).map((name: string) => {
+      const actionPath = path.join(actionsPathRoot, name);
       try {
-        const ac = require(this.getAbsolutePath('actions', name));
-        if (!ac || !ac.default || !this.lock) {
+        if (!this.lock) {
+          return;
+        }
+
+        const isDir = fs.lstatSync(actionPath).isDirectory();
+        if (isDir) {
+          const dirName = path.basename(actionPath);
+          this.injectActions(
+            actionPath,
+            dirName.startsWith('/') ? dirName : `/${dirName}`
+          );
+          return;
+        }
+
+        const ac = require(actionPath);
+        if (!ac || !ac.default) {
           return;
         }
 
@@ -290,13 +308,14 @@ export default class Router {
           return;
         }
 
-        let apiPath = [this.APIPrefix, action.path ?? ''].join('');
+        const apiPath = [this.APIPrefix, actionsPrefix, action.path ?? '']
+          .join('')
+          .trim()
+          .replace(/\/\//gm, '/');
 
-        if (!apiPath || apiPath.trim() === '' || !action?.path) {
+        if (apiPath?.trim() === '' || !action?.path) {
           return;
         }
-
-        apiPath = apiPath.trim().replace(/\/\//gm, '/');
 
         const router = ExpressRouter();
 
@@ -375,7 +394,7 @@ export default class Router {
           this.debugLog(
             'Action loaded %o %s %o',
             functionData.method.toUpperCase(),
-            child,
+            `${apiPath}${child}`,
             functionData.name
           );
 
@@ -473,8 +492,9 @@ export default class Router {
         this.debugError(e);
       }
     });
+  }
 
-    // Define default 404 error for api
+  private injectPathErrors() {
     try {
       this.lock?.acquire('app-middleware-injector', (done) => {
         try {
@@ -495,8 +515,9 @@ export default class Router {
         done();
       });
     } catch {}
+  }
 
-    // Define the Static Files
+  private injectAllStaticFiles() {
     if (this.config?.staticFiles && this.getAbsolutePath) {
       const { staticFiles } = this.config;
       if (!Array.isArray(staticFiles)) {
@@ -510,8 +531,9 @@ export default class Router {
           .map((engine) => this.injectStaticFiles(engine));
       }
     }
+  }
 
-    // Define default 404 error for static files
+  private injectStaticFilesPathErrors() {
     try {
       this.lock?.acquire('app-middleware-injector', (done) => {
         try {
@@ -528,7 +550,6 @@ export default class Router {
               this.errorHandler
             )
           );
-
           this.application?.use((error: any, req: any, res: any, next: any) =>
             this.errorHandler(req, res, next, error)
           );
