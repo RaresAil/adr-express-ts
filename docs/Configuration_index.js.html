@@ -169,10 +169,11 @@ exports.defaultErrorHandler = defaultErrorHandler;
  * @property {string} root The root of the app, for development that is ./src/, this should always be '__dirname'
  * @property {string} apiPrefix The prefix which will be used for the api e.g. /api
  * @property {ConfigurationDebug} debug The debug functions
- * @property {Array&lt;StaticFiles> | StaticFiles | undefined} staticFiles
- * @property {ErroHandler | undefined} errorHandler All the thrown errors and the ones
+ * @property {?(Array&lt;StaticFilesSubdomain> | StaticFiles)} staticFiles
+ * Static files is used to serve static files
+ * @property {?ErroHandler} errorHandler All the thrown errors and the ones
  * from next() will be caught in the errorHandler.
- * @property {NotFoundHandler | undefined} notFoundHandler This handler is used when the
+ * @property {?NotFoundHandler} notFoundHandler This handler is used when the
  * route is not found.
  */
 /**
@@ -180,17 +181,32 @@ exports.defaultErrorHandler = defaultErrorHandler;
  * @member ConfigurationDebug
  * @type {ConfigurationDebug}
  *
- * @property {Function | undefined} log
- * @property {Function | undefined} error
+ * Use an empty function to disable the logger.
+ *
+ * @property {?Function} log If undefined, the default logger will be used.
+ * @property {?Function} error If undefined, the default logger will be used.
  */
 /**
  * @static
  * @member StaticFiles
  * @type {StaticFiles}
  *
- * @property {string} path
- * @property {Array&lt;string>} directory
- * @property {string | undefined} subdomain
+ * @property {string} path The path that will be used to serve the files
+ * @property {Array&lt;string>} directory The root directory for the served files
+ * @property {?string} subdomain A subdomain is optional here
+ * @property {?Array.&lt;string | Function>} middlewares Middlewares
+ * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
+ */
+/**
+ * @static
+ * @member StaticFilesSubdomain
+ * @type {StaticFilesSubdomain}
+ *
+ * @property {string} path The path that will be used to serve the files
+ * @property {Array&lt;string>} directory The root directory for the served files
+ * @property {string} subdomain The subdomain is required.
+ * @property {?Array.&lt;string | Function>} middlewares Middlewares
+ * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
  */
 /**
  * @static

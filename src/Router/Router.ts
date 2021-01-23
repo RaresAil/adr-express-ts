@@ -13,7 +13,7 @@ import express, {
 
 import { Inject, Retrive, Injector } from '../Injector';
 import { Action, Middleware, RouteCallback } from '../@types';
-import { AsyncCallback, APIMiddleware } from '../utils';
+import { AsyncCallback, HandleMiddleware } from '../utils';
 import ExpressTS from '../app/ExpressTS';
 import { getParamValue } from './Params';
 import {
@@ -103,7 +103,7 @@ export default class Router {
               if (mid) {
                 this.debugLog('Global Middleware loaded %o', middleware);
                 this.application?.use(
-                  APIMiddleware(
+                  HandleMiddleware(
                     AsyncCallback(
                       async (
                         req: ExpressRequest,
@@ -122,7 +122,7 @@ export default class Router {
             } else if (typeof middleware === 'function') {
               this.debugLog('Global Middleware loaded %o', middleware.name);
               this.application?.use(
-                APIMiddleware(
+                HandleMiddleware(
                   AsyncCallback(
                     async (
                       req: ExpressRequest,
@@ -296,7 +296,8 @@ export default class Router {
           return;
         }
 
-        apiPath = apiPath.trim();
+        apiPath = apiPath.trim().replace(/\/\//gm, '/');
+
         const router = ExpressRouter();
 
         if (action.middlewares && Array.isArray(action.middlewares)) {
@@ -541,8 +542,12 @@ export default class Router {
     const staticPath = staticFiles.path.startsWith('/')
       ? staticFiles.path.trim()
       : `/${staticFiles.path.trim()}`;
-    const router = ExpressRouter();
 
+    if (staticPath.includes(this.APIPrefix)) {
+      throw new Error("The static files path can't include the API prefix!");
+    }
+
+    const router = ExpressRouter();
     const middlewares: RouteCallback[] = (staticFiles.middlewares ?? [])
       .map((middleware) => {
         if (typeof middleware === 'string') {
@@ -552,7 +557,7 @@ export default class Router {
           }
 
           this.debugLog('Static Files Middleware loaded %o', middleware);
-          return APIMiddleware(
+          return HandleMiddleware(
             AsyncCallback(
               async (
                 req: ExpressRequest,
@@ -568,7 +573,7 @@ export default class Router {
           );
         } else if (typeof middleware === 'function') {
           this.debugLog('Static Files Middleware loaded %o', middleware.name);
-          return APIMiddleware(
+          return HandleMiddleware(
             AsyncCallback(
               async (
                 req: ExpressRequest,
@@ -588,8 +593,16 @@ export default class Router {
       })
       .filter((m) => !!m) as RouteCallback[];
 
-    router.use(...middlewares);
-    router.use(express.static(this.getAbsolutePath(...staticFiles.directory)));
+    if (middlewares.length > 0) {
+      router.use(...middlewares);
+    }
+
+    router.use(
+      express.static(
+        this.getAbsolutePath(...staticFiles.directory),
+        staticFiles.options
+      )
+    );
     router.get('/*', (req, res) =>
       res.sendFile(this.getAbsolutePath(...staticFiles.directory, 'index.html'))
     );

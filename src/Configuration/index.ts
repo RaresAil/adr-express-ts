@@ -1,17 +1,17 @@
-import { Response, Request, NextFunction } from 'express';
+import express, { Response, Request, NextFunction } from 'express';
+
+type ExpressStaticParams = Parameters<typeof express.static>;
 
 export interface StaticFiles {
-  path: string;
+  middlewares?: (string | Function)[];
   directory: string[];
   subdomain?: string;
-  middlewares?: (string | Function)[];
+  path: string;
+  options?: ExpressStaticParams[1];
 }
 
-export interface StaticFilesSubdomain {
-  path: string;
-  directory: string[];
+export interface StaticFilesSubdomain extends StaticFiles {
   subdomain: string;
-  middlewares?: (string | Function)[];
 }
 
 export interface ErroHandler {
@@ -71,10 +71,11 @@ export const defaultErrorHandler: ErroHandler = (
  * @property {string} root The root of the app, for development that is ./src/, this should always be '__dirname'
  * @property {string} apiPrefix The prefix which will be used for the api e.g. /api
  * @property {module:Configuration.ConfigurationDebug} debug The debug functions
- * @property {Array<module:Configuration.StaticFiles> | module:Configuration.StaticFiles | undefined} staticFiles
- * @property {module:Configuration.ErroHandler | undefined} errorHandler All the thrown errors and the ones
+ * @property {?(Array<module:Configuration.StaticFilesSubdomain> | module:Configuration.StaticFiles)} staticFiles
+ * Static files is used to serve static files
+ * @property {?module:Configuration.ErroHandler} errorHandler All the thrown errors and the ones
  * from next() will be caught in the errorHandler.
- * @property {module:Configuration.NotFoundHandler | undefined} notFoundHandler This handler is used when the
+ * @property {?module:Configuration.NotFoundHandler} notFoundHandler This handler is used when the
  * route is not found.
  */
 /**
@@ -82,17 +83,32 @@ export const defaultErrorHandler: ErroHandler = (
  * @member ConfigurationDebug
  * @type {ConfigurationDebug}
  *
- * @property {Function | undefined} log
- * @property {Function | undefined} error
+ * Use an empty function to disable the logger.
+ *
+ * @property {?Function} log If undefined, the default logger will be used.
+ * @property {?Function} error If undefined, the default logger will be used.
  */
 /**
  * @static
  * @member StaticFiles
  * @type {StaticFiles}
  *
- * @property {string} path
- * @property {Array<string>} directory
- * @property {string | undefined} subdomain
+ * @property {string} path The path that will be used to serve the files
+ * @property {Array<string>} directory The root directory for the served files
+ * @property {?string} subdomain A subdomain is optional here
+ * @property {?Array.<string | Function>} middlewares Middlewares
+ * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
+ */
+/**
+ * @static
+ * @member StaticFilesSubdomain
+ * @type {StaticFilesSubdomain}
+ *
+ * @property {string} path The path that will be used to serve the files
+ * @property {Array<string>} directory The root directory for the served files
+ * @property {string} subdomain The subdomain is required.
+ * @property {?Array.<string | Function>} middlewares Middlewares
+ * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
  */
 /**
  * @static

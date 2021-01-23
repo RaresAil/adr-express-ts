@@ -12,7 +12,7 @@ export const AsyncCallback = (fn: RouteCallback, errorHandler: ErroHandler) => (
     return errorHandler(req, res, next, e);
   });
 
-export const APIMiddleware = (
+export const HandleMiddleware = (
   fn: RouteCallback,
   prefix: string,
   mode: 'api' | 'render'

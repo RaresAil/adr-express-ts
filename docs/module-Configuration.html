@@ -151,6 +151,8 @@
       <th>Type</th>
 
       
+        <th>Attributes</th>
+      
 
       
 
@@ -179,6 +181,12 @@
         
       </td>
 
+        
+          <td class="attributes">
+            
+
+            
+          </td>
         
 
         
@@ -209,6 +217,12 @@
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+          </td>
+        
 
         
 
@@ -238,6 +252,12 @@
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+          </td>
+        
 
         
 
@@ -257,19 +277,13 @@
         
           
     <span class="param-type">
-      Array.&lt;<a href="module-Configuration.html#.StaticFiles">StaticFiles</a>>
+      Array.&lt;<a href="module-Configuration.html#.StaticFilesSubdomain">StaticFilesSubdomain</a>>
     </span>
 
     |
 
     <span class="param-type">
       <a href="module-Configuration.html#.StaticFiles">StaticFiles</a>
-    </span>
-
-    |
-
-    <span class="param-type">
-      undefined
     </span>
 
     
@@ -279,11 +293,19 @@
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
 
         
 
         <td class="description last">
-          
+          <p>Static files is used to serve static files</p>
           </td>
     </tr>
 
@@ -301,18 +323,20 @@
       <a href="module-Configuration.html#.ErroHandler">ErroHandler</a>
     </span>
 
-    |
-
-    <span class="param-type">
-      undefined
-    </span>
-
     
 
 
         
       </td>
 
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
         
 
         
@@ -337,18 +361,20 @@ from next() will be caught in the errorHandler.</p>
       <a href="module-Configuration.html#.NotFoundHandler">NotFoundHandler</a>
     </span>
 
-    |
-
-    <span class="param-type">
-      undefined
-    </span>
-
     
 
 
         
       </td>
 
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
         
 
         
@@ -426,6 +452,10 @@ route is not found.</p>
 
 
 
+  <div class="description">
+    <p>Use an empty function to disable the logger.</p>
+  </div>
+
 
 
 
@@ -442,6 +472,8 @@ route is not found.</p>
 
       <th>Type</th>
 
+      
+        <th>Attributes</th>
       
 
       
@@ -465,12 +497,6 @@ route is not found.</p>
       function
     </span>
 
-    |
-
-    <span class="param-type">
-      undefined
-    </span>
-
     
 
 
@@ -478,11 +504,19 @@ route is not found.</p>
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
 
         
 
         <td class="description last">
-          
+          <p>If undefined, the default logger will be used.</p>
           </td>
     </tr>
 
@@ -500,12 +534,6 @@ route is not found.</p>
       function
     </span>
 
-    |
-
-    <span class="param-type">
-      undefined
-    </span>
-
     
 
 
@@ -513,11 +541,19 @@ route is not found.</p>
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
 
         
 
         <td class="description last">
-          
+          <p>If undefined, the default logger will be used.</p>
           </td>
     </tr>
 
@@ -559,7 +595,7 @@ route is not found.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line75">line 75</a>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line76">line 76</a>
         </li>
       </ul>
     </dd>
@@ -767,7 +803,7 @@ route is not found.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line101">line 101</a>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line117">line 117</a>
         </li>
       </ul>
     </dd>
@@ -946,7 +982,7 @@ route is not found.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line92">line 92</a>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line108">line 108</a>
         </li>
       </ul>
     </dd>
@@ -992,6 +1028,8 @@ route is not found.</p>
       <th>Type</th>
 
       
+        <th>Attributes</th>
+      
 
       
 
@@ -1021,11 +1059,17 @@ route is not found.</p>
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+          </td>
+        
 
         
 
         <td class="description last">
-          
+          <p>The path that will be used to serve the files</p>
           </td>
     </tr>
 
@@ -1050,11 +1094,17 @@ route is not found.</p>
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+          </td>
+        
 
         
 
         <td class="description last">
-          
+          <p>The root directory for the served files</p>
           </td>
     </tr>
 
@@ -1072,10 +1122,41 @@ route is not found.</p>
       string
     </span>
 
-    |
+    
 
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>A subdomain is optional here</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>middlewares</code></td>
+      
+
+      <td class="type">
+        
+          
     <span class="param-type">
-      undefined
+      Array.&lt;(string|function())>
     </span>
 
     
@@ -1085,11 +1166,56 @@ route is not found.</p>
       </td>
 
         
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
 
         
 
         <td class="description last">
+          <p>Middlewares</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>options</code></td>
+      
+
+      <td class="type">
+        
           
+    <span class="param-type">
+      serveStatic.ServeStaticOptions
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>Serve Static Options</p>
           </td>
     </tr>
 
@@ -1131,7 +1257,280 @@ route is not found.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line83">line 83</a>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line86">line 86</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+          
+        
+            
+
+<h4 class="name" id=".StaticFilesSubdomain">
+  <span class="type-signature">(static) </span>StaticFilesSubdomain<span class="type-signature"> :StaticFilesSubdomain</span>
+</h4>
+
+
+
+
+
+
+
+  <h5 class="subsection-title">Properties:</h5>
+
+  
+
+<table class="props">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+
+    <tr>
+      
+        <td class="name"><code>path</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>The path that will be used to serve the files</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>directory</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Array.&lt;string>
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>The root directory for the served files</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>subdomain</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>The subdomain is required.</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>middlewares</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Array.&lt;(string|function())>
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>Middlewares</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>options</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      serveStatic.ServeStaticOptions
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>Serve Static Options</p>
+          </td>
+    </tr>
+
+  
+  </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line97">line 97</a>
         </li>
       </ul>
     </dd>
