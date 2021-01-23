@@ -1,4 +1,5 @@
 /* eslint-disable require-jsdoc */
+import rateLimit from 'express-rate-limit';
 import AsyncLock from 'async-lock';
 import path from 'path';
 import fs from 'fs';
@@ -569,7 +570,7 @@ export default class Router {
     }
 
     const router = ExpressRouter();
-    const middlewares: RouteCallback[] = (staticFiles.middlewares ?? [])
+    let middlewares: RouteCallback[] = (staticFiles.middlewares ?? [])
       .map((middleware) => {
         if (typeof middleware === 'string') {
           const mid = Injector.get<Middleware | undefined | null>(middleware);
@@ -613,6 +614,16 @@ export default class Router {
         return null;
       })
       .filter((m) => !!m) as RouteCallback[];
+
+    if (staticFiles.rateLimitOptions) {
+      middlewares = [
+        AsyncCallback(
+          rateLimit(staticFiles.rateLimitOptions) as any,
+          this.errorHandler
+        ),
+        ...middlewares
+      ];
+    }
 
     if (middlewares.length > 0) {
       router.use(...middlewares);

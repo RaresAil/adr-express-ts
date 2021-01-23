@@ -196,6 +196,7 @@ exports.defaultErrorHandler = defaultErrorHandler;
  * @property {?string} subdomain A subdomain is optional here
  * @property {?Array.&lt;string | Function>} middlewares Middlewares
  * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
+ * @property {?rateLimit.Options} rateLimitOptions To disable the rate limiter, set to undefined
  */
 /**
  * @static
@@ -207,6 +208,7 @@ exports.defaultErrorHandler = defaultErrorHandler;
  * @property {string} subdomain The subdomain is required.
  * @property {?Array.&lt;string | Function>} middlewares Middlewares
  * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
+ * @property {?rateLimit.Options} rateLimitOptions To disable the rate limiter, set to undefined
  */
 /**
  * @static

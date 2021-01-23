@@ -1,4 +1,5 @@
 import express, { Response, Request, NextFunction } from 'express';
+import { Options as RateLimitOptions } from 'express-rate-limit';
 
 type ExpressStaticParams = Parameters<typeof express.static>;
 
@@ -8,6 +9,7 @@ export interface StaticFiles {
   subdomain?: string;
   path: string;
   options?: ExpressStaticParams[1];
+  rateLimitOptions?: RateLimitOptions;
 }
 
 export interface StaticFilesSubdomain extends StaticFiles {
@@ -98,6 +100,7 @@ export const defaultErrorHandler: ErroHandler = (
  * @property {?string} subdomain A subdomain is optional here
  * @property {?Array.<string | Function>} middlewares Middlewares
  * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
+ * @property {?rateLimit.Options} rateLimitOptions To disable the rate limiter, set to undefined
  */
 /**
  * @static
@@ -109,6 +112,7 @@ export const defaultErrorHandler: ErroHandler = (
  * @property {string} subdomain The subdomain is required.
  * @property {?Array.<string | Function>} middlewares Middlewares
  * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
+ * @property {?rateLimit.Options} rateLimitOptions To disable the rate limiter, set to undefined
  */
 /**
  * @static
