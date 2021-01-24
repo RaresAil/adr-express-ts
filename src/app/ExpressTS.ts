@@ -29,6 +29,25 @@ export default abstract class ExpressTS {
   private static domains: DomainList = {};
   private static actions: Actions = {};
 
+  private static validateType(type: DataType): string {
+    switch (type) {
+      case 'functionParams':
+        return type;
+      case 'injections':
+        return type;
+      case 'responders':
+        return type;
+      case 'entities':
+        return type;
+      case 'domains':
+        return type;
+      case 'actions':
+        return type;
+      default:
+        throw new Error('Invalid Data Type!');
+    }
+  }
+
   static inject(target: any, source: Function, type: InjectType) {
     target.prototype = source.prototype;
     target[this.symbols.name] = source.name;
@@ -36,7 +55,7 @@ export default abstract class ExpressTS {
   }
 
   static getInjectedField(target: any, field: 'name' | 'type') {
-    return target[this.symbols[field]];
+    return target[this.symbols[field.toString()]];
   }
 
   static clearInjections() {
@@ -44,28 +63,41 @@ export default abstract class ExpressTS {
   }
 
   static setData(name: string, value: any, type: DataType) {
-    this[type] = {
-      ...this[type],
+    if (!name || !type) {
+      return null;
+    }
+
+    const validType = this.validateType(type);
+    (this as any)[validType.toString()] = {
+      ...(this as any)[validType.toString()],
       [name]: value
     };
   }
 
-  static getData(name: string, type: DataType) {
-    if (!this[type][name]) {
+  static getData(name: string | undefined, type: DataType) {
+    if (!name || !type) {
       return null;
     }
 
-    if (Array.isArray(this[type][name])) {
-      return [...(this[type][name] as any)];
+    const validType = this.validateType(type);
+    if (!(this as any)[validType.toString()][name.toString()]) {
+      return null;
     }
 
-    switch (typeof this[type][name]) {
+    if (Array.isArray((this as any)[validType.toString()][name.toString()])) {
+      return [...(this as any)[validType.toString()][name.toString()]];
+    }
+
+    switch (typeof (this as any)[validType.toString()][name.toString()]) {
       case 'string':
-        return `${this[type][name]}`;
+        return `${(this as any)[validType.toString()][name.toString()]}`;
       case 'object':
-        return Object.assign({}, this[type][name]);
+        return Object.assign(
+          {},
+          (this as any)[validType.toString()][name.toString()]
+        );
       default:
-        return this[type][name];
+        return (this as any)[validType.toString()][name.toString()];
     }
   }
 }

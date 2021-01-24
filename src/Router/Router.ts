@@ -389,7 +389,7 @@ export default class Router {
 
           const paramsInfo: string[] = [];
           paramsInfoRaw.map(({ index: paramPosition, target: paramTarget }) => {
-            paramsInfo[paramPosition] = paramTarget;
+            paramsInfo[parseInt(paramPosition)] = paramTarget;
           });
 
           this.debugLog(

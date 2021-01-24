@@ -41,6 +41,7 @@
   "scripts": {
     "generate:docs": "rm -rf ./docs/ && npm run build && node_modules/.bin/jsdoc --configure .jsdoc.json --verbose && node ./scripts/build-docs.js",
     "build": "npm run lint && rm -rf ./lib/ && tsc -p .",
+    "test": "npm run build && node ./scripts/setup-tests.js",
     "lint": "eslint src/**/*.ts",
     "read:docs": "serve ./docs",
     "version": "npm run build"
@@ -69,6 +70,7 @@
     "braintree-jsdoc-template": "^3.3.0",
     "eslint": "^7.18.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-plugin-security": "^1.4.0",
     "fs-extra": "^9.1.0",
     "husky": "^4.3.8",
     "jsdoc": "^3.6.6",

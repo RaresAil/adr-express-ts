@@ -37,11 +37,11 @@ export default abstract class Injector {
    * [Injector.get]{@link module:Injector.Injector.get}<Configuration>('Configuration');
    */
   public static get<T>(name: string): T | null {
-    if (!this.instances[name]?.instance) {
+    if (!this.instances[name.toString()]?.instance) {
       return null;
     }
 
-    return this.instances[name].instance;
+    return this.instances[name.toString()].instance;
   }
 
   /**
@@ -62,11 +62,11 @@ export default abstract class Injector {
 
     const injectedName = ExpressTS.getInjectedField(value, 'name');
     const injectedType = ExpressTS.getInjectedField(value, 'type');
-    const InstanceTarget = ExpressTS.getData(injectedName, 'injections') as any;
+    const InstanceTarget = ExpressTS.getData(injectedName, 'injections');
 
     if (
       InstanceTarget &&
-      !this.instances[name] &&
+      !this.instances[name.toString()] &&
       (type === InjectType.Class || type === InjectType.Middleware)
     ) {
       if (injectedType !== 'class') {
