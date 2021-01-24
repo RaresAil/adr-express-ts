@@ -105,14 +105,13 @@
       <h1>ADR Express TypeScript</h1>
 <p><img src="https://github.com/RaresAil/adr-express-ts/workflows/Build/badge.svg" alt="Build">
 <img src="https://github.com/RaresAil/adr-express-ts/workflows/CodeQL/badge.svg" alt="CodeQL">
-<img src="https://github.com/RaresAil/eadit-cli/workflows/EADIT-CLI%20CI/badge.svg" alt="EADIT-CLI CI"></p>
+<img src="https://github.com/RaresAil/eadit-cli/workflows/CLI%20Build/badge.svg" alt="CLI Build"></p>
 <ul>
 <li><a href="https://raresail.github.io/adr-express-ts/">Documentation</a></li>
 <li><a href="https://github.com/RaresAil/adr-express-ts">GitHub</a></li>
 <li><a href="https://www.npmjs.com/package/adr-express-ts">NPM</a></li>
 </ul>
 <p>This package is a dependency injection for express with typescript using decorators and the <a href="https://en.wikipedia.org/wiki/Action%E2%80%93domain%E2%80%93responder">Action–Domain–Responder</a> pattern.</p>
-<h2>THIS VERSION IS A PRE-RELEASE!! PLEASE WAIT UNTIL THE VERSION 1.0.0 IS RELEASED!</h2>
 <h2>Getting Started</h2>
 <h4>Create</h4>
 <p>Use my CLI to create the application. Instead of &quot;myFolderName&quot; you can add &quot;.&quot; to install it in the current directory.
@@ -164,6 +163,8 @@ Always use <code>npx</code> to use the latest version of the CLI.</p>
 - /actions
 
 # Here you define the route and the methods (get, post, put, delete)
+
+# If you have /actions/v1/Action.ts, all the actions in v1 will have the prefix v1
 
 # Are automatically injectetd!
 
@@ -221,22 +222,199 @@ Always use <code>npx</code> to use the latest version of the CLI.</p>
 - index.ts
 </code></pre>
 <h2>Configuration</h2>
-<pre class="prettyprint source lang-js"><code>Injector.inject(
-  'Configuration',
-  {
-    root: __dirname,
-    restPrefix: '/api',
-    debug: {
-      log: console.log,
-      error: console.error
-    },
-    staticFiles: {
-      path: '/',
-      directory: ['public']
+<pre class="prettyprint source lang-js"><code>Injector.setup({
+  root: __dirname,
+  apiPrefix: '/api',
+  debug: {
+    log: console.log,
+    error: console.error
+  },
+  staticFiles: {
+    path: '/',
+    directory: ['public'],
+    rateLimitOptions: {
+      windowMs: 5 * 60 * 1000,
+      max: 100
     }
-  } as Configuration,
-  InjectType.Variable
-);
+  },
+  errorHandler: undefined /* If undefined, the default error handler will be used. */,
+  notFoundHandler: undefined /* If undefined, the default not found handler will be used. */
+});
+</code></pre>
+<h2>Entity Model</h2>
+<p>This model is for Mongoose.</p>
+<pre class="prettyprint source lang-js"><code>@Inject
+@Entity('User')
+export default class UserEntity implements InjectedEntity {
+  @Retrive('Mongoose')
+  private mongoose?: MongooseClass;
+
+  async onLoad(): Promise&lt;void> {
+    if (!this.mongoose) {
+      return;
+    }
+
+    const { ObjectId } = Schema as any;
+
+    this.mongoose.model(
+      'User',
+      new Schema({
+        id: ObjectId,
+        email: {
+          type: String,
+          min: 3,
+          max: 255,
+          required: true
+        },
+        password: {
+          type: String,
+          min: 8,
+          required: true
+        }
+      })
+    );
+  }
+}
+</code></pre>
+<h2>Responder Model</h2>
+<pre class="prettyprint source lang-js"><code>import { Inject, Responder } from 'adr-express-ts';
+import { Response } from 'express';
+
+@Inject
+@Responder('Demo')
+export default class DemoResponder {
+  public success(res: Response) {
+    return res.status(200).json({
+      success: true
+    });
+  }
+
+  public demo(res: Response, status: number, output: any) {
+    return res.status(status).json(output);
+  }
+}
+</code></pre>
+<h2>Middleware Model</h2>
+<pre class="prettyprint source lang-js"><code>import { Request, Response, NextFunction } from 'express';
+import { Middleware } from 'adr-express-ts/lib/@types';
+import { Inject } from 'adr-express-ts';
+
+@Inject
+export default class AuthentificationMiddleware implements Middleware {
+  public async middleware(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise&lt;any> {
+    (req as any).myData = 'My custom request data!';
+    return next();
+  }
+}
+</code></pre>
+<h2>Action Model</h2>
+<pre class="prettyprint source lang-js"><code>import {
+  Action,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Request,
+  Response,
+  Retrive
+} from 'adr-express-ts';
+import {
+  Request as ExpressRequest,
+  Response as ExpressResponse
+} from 'express';
+
+import DemoResponder from '../responders/DemoResponder';
+import DemoDomain from '../domain/DemoDomain';
+
+@Action('/demo', ['MiddlewareHere'])
+export default class DemoAction {
+  @Retrive('Responder.Demo')
+  private responder?: DemoResponder;
+
+  @Retrive('Domain.Demo')
+  private domain?: DemoDomain;
+
+  @Get('/demo1', ['MiddlwareHere'])
+  public findAll(
+    @Request req: ExpressRequest,
+    @Response res: ExpressResponse
+  ): any {
+    return res.send({
+      success: true,
+      test: (req as any).myData
+    });
+  }
+
+  @Post()
+  public async saveX(
+    @Request req: ExpressRequest,
+    @Response res: ExpressResponse
+  ): Promise&lt;any> {
+    const dataFromDatabase = await this.domain!.test('parameter from action');
+    return this.responder!.demo(res, 201, dataFromDatabase);
+  }
+
+  @Delete()
+  public async deleteY(
+    @Request req: ExpressRequest,
+    @Response res: ExpressResponse
+  ): Promise&lt;any> {
+    return this.responder!.success(res);
+  }
+}
+</code></pre>
+<h2>Domain Model</h2>
+<pre class="prettyprint source lang-js"><code>import { Inject, Domain } from 'adr-express-ts';
+
+@Inject
+@Domain('Demo')
+export default class DemoDomain {
+  public async test(someParameter: string) {
+    return {
+      success: true,
+      data: 'Data from database',
+      someParameter
+    };
+  }
+}
+</code></pre>
+<h2>Server.ts Example</h2>
+<pre class="prettyprint source lang-js"><code>import { Configuration, Inject, Retrive } from 'adr-express-ts';
+import { InjectedClass } from 'adr-express-ts/lib/@types';
+import { Application } from 'express';
+
+@Inject
+export default class Server implements InjectedClass {
+  @Retrive('ExpressApp')
+  private application?: Application;
+
+  @Retrive('Configuration')
+  private config?: Configuration;
+
+  @Retrive('Middlewares')
+  private middlewares?: any;
+
+  public async onReady(): Promise&lt;void> {
+    try {
+      if (!this.application || !this.config) {
+        return;
+      }
+
+      const log = this.config.debug.log ?? console.log;
+
+      this.application.listen(4000, '0.0.0.0', async () => {
+        log('Server started %o', '0.0.0.0:4000');
+      });
+    } catch (e) {
+      const error = this.config?.debug.error ?? console.error;
+      error(e);
+    }
+  }
+}
 </code></pre>
     </article>
   </section>
