@@ -1,6 +1,6 @@
 {
   "name": "adr-express-ts",
-  "version": "0.0.3-0",
+  "version": "1.0.0",
   "description": "This package is a dependency injection for express with typescript using decorators and the Action–Domain–Responder pattern",
   "main": "lib/index.js",
   "types": "lib",
