@@ -2,15 +2,13 @@
 
 ![Build](https://github.com/RaresAil/adr-express-ts/workflows/Build/badge.svg)
 ![CodeQL](https://github.com/RaresAil/adr-express-ts/workflows/CodeQL/badge.svg)
-![EADIT-CLI CI](https://github.com/RaresAil/eadit-cli/workflows/EADIT-CLI%20CI/badge.svg)
+![CLI Build](https://github.com/RaresAil/eadit-cli/workflows/CLI%20Build/badge.svg)
 
 - [Documentation](https://raresail.github.io/adr-express-ts/)
 - [GitHub](https://github.com/RaresAil/adr-express-ts)
 - [NPM](https://www.npmjs.com/package/adr-express-ts)
 
 This package is a dependency injection for express with typescript using decorators and the [Action–Domain–Responder](https://en.wikipedia.org/wiki/Action–domain–responder) pattern.
-
-## THIS VERSION IS A PRE-RELEASE!! PLEASE WAIT UNTIL THE VERSION 1.0.0 IS RELEASED!
 
 ## Getting Started
 
@@ -94,6 +92,8 @@ After everything is installed, you should see the following output.
 
 # Here you define the route and the methods (get, post, put, delete)
 
+# If you have /actions/v1/Action.ts, all the actions in v1 will have the prefix v1
+
 # Are automatically injectetd!
 
 - - action.ts
@@ -153,20 +153,216 @@ After everything is installed, you should see the following output.
 ## Configuration
 
 ```js
-Injector.inject(
-  'Configuration',
-  {
-    root: __dirname,
-    restPrefix: '/api',
-    debug: {
-      log: console.log,
-      error: console.error
-    },
-    staticFiles: {
-      path: '/',
-      directory: ['public']
+Injector.setup({
+  root: __dirname,
+  apiPrefix: '/api',
+  debug: {
+    log: console.log,
+    error: console.error
+  },
+  staticFiles: {
+    path: '/',
+    directory: ['public'],
+    rateLimitOptions: {
+      windowMs: 5 * 60 * 1000,
+      max: 100
     }
-  } as Configuration,
-  InjectType.Variable
-);
+  },
+  errorHandler: undefined /* If undefined, the default error handler will be used. */,
+  notFoundHandler: undefined /* If undefined, the default not found handler will be used. */
+});
+```
+
+## Entity Model
+
+This model is for Mongoose.
+
+```js
+@Inject
+@Entity('User')
+export default class UserEntity implements InjectedEntity {
+  @Retrive('Mongoose')
+  private mongoose?: MongooseClass;
+
+  async onLoad(): Promise<void> {
+    if (!this.mongoose) {
+      return;
+    }
+
+    const { ObjectId } = Schema as any;
+
+    this.mongoose.model(
+      'User',
+      new Schema({
+        id: ObjectId,
+        email: {
+          type: String,
+          min: 3,
+          max: 255,
+          required: true
+        },
+        password: {
+          type: String,
+          min: 8,
+          required: true
+        }
+      })
+    );
+  }
+}
+```
+
+## Responder Model
+
+```js
+import { Inject, Responder } from 'adr-express-ts';
+import { Response } from 'express';
+
+@Inject
+@Responder('Demo')
+export default class DemoResponder {
+  public success(res: Response) {
+    return res.status(200).json({
+      success: true
+    });
+  }
+
+  public demo(res: Response, status: number, output: any) {
+    return res.status(status).json(output);
+  }
+}
+```
+
+## Middleware Model
+
+```js
+import { Request, Response, NextFunction } from 'express';
+import { Middleware } from 'adr-express-ts/lib/@types';
+import { Inject } from 'adr-express-ts';
+
+@Inject
+export default class AuthentificationMiddleware implements Middleware {
+  public async middleware(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    (req as any).myData = 'My custom request data!';
+    return next();
+  }
+}
+```
+
+## Action Model
+
+```js
+import {
+  Action,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Request,
+  Response,
+  Retrive
+} from 'adr-express-ts';
+import {
+  Request as ExpressRequest,
+  Response as ExpressResponse
+} from 'express';
+
+import DemoResponder from '../responders/DemoResponder';
+import DemoDomain from '../domain/DemoDomain';
+
+@Action('/demo', ['MiddlewareHere'])
+export default class DemoAction {
+  @Retrive('Responder.Demo')
+  private responder?: DemoResponder;
+
+  @Retrive('Domain.Demo')
+  private domain?: DemoDomain;
+
+  @Get('/demo1', ['MiddlwareHere'])
+  public findAll(
+    @Request req: ExpressRequest,
+    @Response res: ExpressResponse
+  ): any {
+    return res.send({
+      success: true,
+      test: (req as any).myData
+    });
+  }
+
+  @Post()
+  public async saveX(
+    @Request req: ExpressRequest,
+    @Response res: ExpressResponse
+  ): Promise<any> {
+    const dataFromDatabase = await this.domain!.test('parameter from action');
+    return this.responder!.demo(res, 201, dataFromDatabase);
+  }
+
+  @Delete()
+  public async deleteY(
+    @Request req: ExpressRequest,
+    @Response res: ExpressResponse
+  ): Promise<any> {
+    return this.responder!.success(res);
+  }
+}
+```
+
+## Domain Model
+
+```js
+import { Inject, Domain } from 'adr-express-ts';
+
+@Inject
+@Domain('Demo')
+export default class DemoDomain {
+  public async test(someParameter: string) {
+    return {
+      success: true,
+      data: 'Data from database',
+      someParameter
+    };
+  }
+}
+```
+
+## Server.ts Example
+
+```js
+import { Configuration, Inject, Retrive } from 'adr-express-ts';
+import { InjectedClass } from 'adr-express-ts/lib/@types';
+import { Application } from 'express';
+
+@Inject
+export default class Server implements InjectedClass {
+  @Retrive('ExpressApp')
+  private application?: Application;
+
+  @Retrive('Configuration')
+  private config?: Configuration;
+
+  @Retrive('Middlewares')
+  private middlewares?: any;
+
+  public async onReady(): Promise<void> {
+    try {
+      if (!this.application || !this.config) {
+        return;
+      }
+
+      const log = this.config.debug.log ?? console.log;
+
+      this.application.listen(4000, '0.0.0.0', async () => {
+        log('Server started %o', '0.0.0.0:4000');
+      });
+    } catch (e) {
+      const error = this.config?.debug.error ?? console.error;
+      error(e);
+    }
+  }
+}
 ```
