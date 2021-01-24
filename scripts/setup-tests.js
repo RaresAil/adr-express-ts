@@ -56,5 +56,8 @@ const options = require('./testing-config.json');
   replaceFilesInDir(envSrc);
 
   log(execSync(`cd "${env}" && yarn test`).toString('utf8'));
-  cleanEnv();
+
+  try {
+    cleanEnv();
+  } catch {}
 })();
