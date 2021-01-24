@@ -1,6 +1,7 @@
 # ADR Express TypeScript
 
 ![Build](https://github.com/RaresAil/adr-express-ts/workflows/Build/badge.svg)
+![CodeQL](https://github.com/RaresAil/adr-express-ts/workflows/CodeQL/badge.svg)
 ![EADIT-CLI CI](https://github.com/RaresAil/eadit-cli/workflows/EADIT-CLI%20CI/badge.svg)
 
 - [Documentation](https://raresail.github.io/adr-express-ts/)
