@@ -54,6 +54,10 @@ export interface EntityList {
   [key: string]: string;
 }
 
-export interface RouteCallback {
-  (req: ExpressRequest, res: ExpressResponse, next: ExpressNext): Promise<any>;
+export interface RouteCallback<
+  TReq = ExpressRequest,
+  TRes = ExpressResponse,
+  TNext = ExpressNext
+> {
+  (req: TReq, res: TRes, next: TNext): Promise<any>;
 }

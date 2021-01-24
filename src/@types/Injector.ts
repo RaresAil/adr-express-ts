@@ -1,3 +1,9 @@
+import {
+  Request as ExpressRequest,
+  Response as ExpressResponse,
+  NextFunction as ExpressNext
+} from 'express';
+
 import { RouteCallback } from './Router';
 
 export interface InjectedClass {
@@ -8,8 +14,12 @@ export interface InjectedEntity {
   onLoad(): Promise<void>;
 }
 
-export interface Middleware {
-  middleware: RouteCallback;
+export interface Middleware<
+  TReq = ExpressRequest,
+  TRes = ExpressResponse,
+  TNext = ExpressNext
+> {
+  middleware: RouteCallback<TReq, TRes, TNext>;
 }
 
 /**
