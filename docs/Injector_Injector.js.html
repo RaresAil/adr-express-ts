@@ -188,10 +188,10 @@ var Injector = /** @class */ (function () {
      */
     Injector.get = function (name) {
         var _a;
-        if (!((_a = this.instances[name]) === null || _a === void 0 ? void 0 : _a.instance)) {
+        if (!((_a = this.instances[name.toString()]) === null || _a === void 0 ? void 0 : _a.instance)) {
             return null;
         }
-        return this.instances[name].instance;
+        return this.instances[name.toString()].instance;
     };
     /**
      * This function is used to inject an object/variable.
@@ -210,7 +210,7 @@ var Injector = /** @class */ (function () {
         var injectedType = ExpressTS_1.default.getInjectedField(value, 'type');
         var InstanceTarget = ExpressTS_1.default.getData(injectedName, 'injections');
         if (InstanceTarget &amp;&amp;
-            !this.instances[name] &amp;&amp;
+            !this.instances[name.toString()] &amp;&amp;
             (type === Injector_1.InjectType.Class || type === Injector_1.InjectType.Middleware)) {
             if (injectedType !== 'class') {
                 throw new Error("The injected type for '" + injectedName + "' is '" + injectedType + "', but the InjectType is not 'Class' or 'Middleware'");
