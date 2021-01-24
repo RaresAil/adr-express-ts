@@ -8,15 +8,15 @@ const fs = require('fs');
 const options = require('./testing-config.json');
 
 (() => {
-  const env = path.join(__dirname, options.location);
+  const testLocation = path.join(__dirname, options.location);
   const localLib = path.join(__dirname, '..', 'lib');
-  const envSrc = path.join(env, 'src');
+  const testLocationSrc = path.join(testLocation, 'src');
 
   const log = console.log;
 
-  const cleanEnv = () => {
-    if (fs.existsSync(env)) {
-      fs.rmdirSync(env, {
+  const clean = () => {
+    if (fs.existsSync(testLocation)) {
+      fs.rmdirSync(testLocation, {
         recursive: true
       });
     }
@@ -49,15 +49,17 @@ const options = require('./testing-config.json');
     });
   };
 
-  cleanEnv();
-  log(execSync(`git clone ${options.source} "${env}"`).toString('utf8'));
-  log(execSync(`cd "${env}" && yarn`).toString('utf8'));
+  clean();
+  log(
+    execSync(`git clone ${options.source} "${testLocation}"`).toString('utf8')
+  );
+  log(execSync(`cd "${testLocation}" && yarn`).toString('utf8'));
 
-  replaceFilesInDir(envSrc);
+  replaceFilesInDir(testLocationSrc);
 
-  log(execSync(`cd "${env}" && yarn test`).toString('utf8'));
+  log(execSync(`cd "${testLocation}" && yarn test`).toString('utf8'));
 
   try {
-    cleanEnv();
+    clean();
   } catch {}
 })();
