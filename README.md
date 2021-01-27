@@ -162,7 +162,7 @@ After everything is installed, you should see the following output.
 
 ```js
 Injector.setup({
-  root: __dirname,
+  rootFile: __filename,
   apiPrefix: '/api',
   debug: {
     log: console.log,
