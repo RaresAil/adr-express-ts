@@ -166,7 +166,8 @@ exports.defaultErrorHandler = defaultErrorHandler;
  * @member Configuration
  * @type {Configuration}
  *
- * @property {string} root The root of the app, for development that is ./src/, this should always be '__dirname'
+ * @property {string} rootFile The file that is in the root of the app, for development
+ * that should be in ./src/index.ts, this should always be '__filename'
  * @property {string} apiPrefix The prefix which will be used for the api e.g. /api
  * @property {ConfigurationDebug} debug The debug functions
  * @property {?(Array&lt;StaticFilesSubdomain> | StaticFiles)} staticFiles
