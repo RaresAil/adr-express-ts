@@ -10,3 +10,4 @@ updates:
       - "dependencies"
     reviewers:
       - "RaresAil"
+    versioning-strategy: increase
