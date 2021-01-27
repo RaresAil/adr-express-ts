@@ -15,11 +15,15 @@ const options = require('./testing-config.json');
   const log = console.log;
 
   const clean = () => {
-    if (fs.existsSync(testLocation)) {
-      fs.rmdirSync(testLocation, {
-        recursive: true
-      });
-    }
+    try {
+      if (fs.existsSync(testLocation)) {
+        log('Cleaning.');
+        fs.rmSync(testLocation, {
+          recursive: true,
+          force: true
+        });
+      }
+    } catch {}
   };
 
   const replaceFilesInDir = (location) => {
@@ -58,8 +62,5 @@ const options = require('./testing-config.json');
   replaceFilesInDir(testLocationSrc);
 
   log(execSync(`cd "${testLocation}" && yarn test`).toString('utf8'));
-
-  try {
-    clean();
-  } catch {}
+  clean();
 })();

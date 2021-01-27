@@ -30,7 +30,7 @@ export interface ConfigurationDebug {
 }
 
 export interface Configuration {
-  root: string;
+  rootFile: string;
   apiPrefix: string;
   debug: ConfigurationDebug;
   staticFiles?: StaticFilesSubdomain[] | StaticFiles;
@@ -70,7 +70,8 @@ export const defaultErrorHandler: ErroHandler = (
  * @member Configuration
  * @type {Configuration}
  *
- * @property {string} root The root of the app, for development that is ./src/, this should always be '__dirname'
+ * @property {string} rootFile The file that is in the root of the app, for development
+ * that should be in ./src/index.ts, this should always be '__filename'
  * @property {string} apiPrefix The prefix which will be used for the api e.g. /api
  * @property {module:Configuration.ConfigurationDebug} debug The debug functions
  * @property {?(Array<module:Configuration.StaticFilesSubdomain> | module:Configuration.StaticFiles)} staticFiles

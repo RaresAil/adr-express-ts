@@ -53,7 +53,10 @@ export default class Router {
   }
 
   private getAbsolutePath(...args: string[]): string {
-    return path.join.apply(null, [this.config!.root, ...args]);
+    return path.join.apply(null, [
+      path.dirname(this.config!.rootFile),
+      ...args
+    ]);
   }
 
   private get APIPrefix() {
@@ -65,10 +68,18 @@ export default class Router {
     return prefix.startsWith('/') ? prefix : `/${prefix}`;
   }
 
+  private isValidFile(fileName: string): boolean {
+    if (path.extname(fileName) === path.extname(this.config!.rootFile)) {
+      return true;
+    }
+
+    return false;
+  }
+
   constructor() {
     this.lock = new AsyncLock();
 
-    if (!this.config?.root || !this.config?.apiPrefix) {
+    if (!this.config?.rootFile || !this.config?.apiPrefix) {
       throw new Error('The configuration is not Injected!');
     }
 
@@ -152,11 +163,16 @@ export default class Router {
   private injectEntities() {
     fs.readdirSync(this.getAbsolutePath('domain', 'entities')).map(
       (name: string) => {
+        if (!this.isValidFile(name)) {
+          return;
+        }
+
         try {
           let ent;
           try {
             ent = require(this.getAbsolutePath('domain', 'entities', name));
-          } catch {
+          } catch (e) {
+            this.debugError(e);
             return;
           }
 
@@ -192,12 +208,17 @@ export default class Router {
 
   private injectDomains() {
     fs.readdirSync(this.getAbsolutePath('domain')).map((name: string) => {
+      if (!this.isValidFile(name)) {
+        return;
+      }
+
       try {
         let dom;
 
         try {
           dom = require(this.getAbsolutePath('domain', name));
-        } catch {
+        } catch (e) {
+          this.debugError(e);
           return;
         }
 
@@ -232,12 +253,17 @@ export default class Router {
 
   private injectResponders() {
     fs.readdirSync(this.getAbsolutePath('responders')).map((name: string) => {
+      if (!this.isValidFile(name)) {
+        return;
+      }
+
       try {
         let resp;
 
         try {
           resp = require(this.getAbsolutePath('responders', name));
-        } catch {
+        } catch (e) {
+          this.debugError(e);
           return;
         }
 
@@ -281,6 +307,10 @@ export default class Router {
             actionPath,
             dirName.startsWith('/') ? dirName : `/${dirName}`
           );
+          return;
+        }
+
+        if (!this.isValidFile(actionPath)) {
           return;
         }
 
