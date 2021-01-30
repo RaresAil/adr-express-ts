@@ -113,11 +113,12 @@ export default abstract class Injector {
     const entities = Object.values(this.instances).filter(
       (x: any) => x.type === InjectType.Class && x.instance && x.instance.onLoad
     );
-    const promises: Promise<void>[] = entities.map((entity: any) =>
-      entity.instance.onLoad()
-    );
 
-    await Promise.all(promises);
+    await entities.reduce(
+      (current: Promise<void>, next) =>
+        current.then<void, void>(() => next.instance.onLoad()),
+      Promise.resolve()
+    );
 
     Object.values(this.instances)
       .filter(

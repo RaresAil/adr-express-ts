@@ -161,6 +161,10 @@ export default class Router {
   }
 
   private injectEntities() {
+    if (!fs.existsSync(this.getAbsolutePath('domain', 'entities'))) {
+      return;
+    }
+
     fs.readdirSync(this.getAbsolutePath('domain', 'entities')).map(
       (name: string) => {
         if (!this.isValidFile(name)) {
@@ -207,6 +211,10 @@ export default class Router {
   }
 
   private injectDomains() {
+    if (!fs.existsSync(this.getAbsolutePath('domain'))) {
+      return;
+    }
+
     fs.readdirSync(this.getAbsolutePath('domain')).map((name: string) => {
       if (!this.isValidFile(name)) {
         return;
@@ -252,6 +260,10 @@ export default class Router {
   }
 
   private injectResponders() {
+    if (!fs.existsSync(this.getAbsolutePath('responders'))) {
+      return;
+    }
+
     fs.readdirSync(this.getAbsolutePath('responders')).map((name: string) => {
       if (!this.isValidFile(name)) {
         return;
@@ -293,6 +305,10 @@ export default class Router {
   }
 
   private injectActions(actionsPathRoot: string, actionsPrefix: string) {
+    if (!fs.existsSync(actionsPathRoot)) {
+      return;
+    }
+
     fs.readdirSync(actionsPathRoot).map((name: string) => {
       const actionPath = path.join(actionsPathRoot, name);
       try {

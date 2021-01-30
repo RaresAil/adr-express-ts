@@ -244,15 +244,14 @@ var Injector = /** @class */ (function () {
      */
     Injector.ready = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var entities, promises;
+            var entities;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         entities = Object.values(this.instances).filter(function (x) { return x.type === Injector_1.InjectType.Class &amp;&amp; x.instance &amp;&amp; x.instance.onLoad; });
-                        promises = entities.map(function (entity) {
-                            return entity.instance.onLoad();
-                        });
-                        return [4 /*yield*/, Promise.all(promises)];
+                        return [4 /*yield*/, entities.reduce(function (current, next) {
+                                return current.then(function () { return next.instance.onLoad(); });
+                            }, Promise.resolve())];
                     case 1:
                         _a.sent();
                         Object.values(this.instances)
