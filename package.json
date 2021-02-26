@@ -72,7 +72,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-security": "^1.4.0",
     "fs-extra": "^9.1.0",
-    "husky": "^5.0.9",
+    "husky": "^5.1.1",
     "jsdoc": "^3.6.6",
     "jsdoc-escape-at": "^1.0.1",
     "ts-node": "^9.1.1",
