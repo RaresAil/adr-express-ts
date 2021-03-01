@@ -68,7 +68,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "braintree-jsdoc-template": "^3.3.0",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-security": "^1.4.0",
     "fs-extra": "^9.1.0",
