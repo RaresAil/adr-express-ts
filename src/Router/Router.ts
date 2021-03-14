@@ -96,8 +96,18 @@ export default class Router {
     this.injectEntities();
     this.injectDomains();
     this.injectActions(this.getAbsolutePath('actions'), '');
-    this.injectPathErrors();
+
+    const isSamePath = this.isApiTheSameAsStatic();
+
+    if (!isSamePath) {
+      this.injectPathErrors();
+    }
+
     this.injectAllStaticFiles();
+
+    if (isSamePath) {
+      this.injectPathErrors();
+    }
     this.injectStaticFilesPathErrors();
   }
 
@@ -541,6 +551,23 @@ export default class Router {
     });
   }
 
+  private isApiTheSameAsStatic(): boolean {
+    let check: boolean = false;
+
+    if (this.config?.staticFiles && this.getAbsolutePath) {
+      const { staticFiles } = this.config;
+      if (
+        !Array.isArray(staticFiles) &&
+        this.staticFilesPath(staticFiles).includes(this.APIPrefix) &&
+        staticFiles.disableIndexRouter
+      ) {
+        check = !!staticFiles.disableIndexRouter;
+      }
+    }
+
+    return check;
+  }
+
   private injectPathErrors() {
     try {
       this.lock?.acquire('app-middleware-injector', (done) => {
@@ -606,13 +633,23 @@ export default class Router {
     } catch {}
   }
 
-  private injectStaticFiles(staticFiles: StaticFiles | StaticFilesSubdomain) {
-    const staticPath = staticFiles.path.startsWith('/')
+  private staticFilesPath(staticFiles: StaticFiles | StaticFilesSubdomain) {
+    return staticFiles.path.startsWith('/')
       ? staticFiles.path.trim()
       : `/${staticFiles.path.trim()}`;
+  }
+
+  private injectStaticFiles(staticFiles: StaticFiles | StaticFilesSubdomain) {
+    const staticPath = this.staticFilesPath(staticFiles);
 
     if (staticPath.includes(this.APIPrefix)) {
-      throw new Error("The static files path can't include the API prefix!");
+      if (
+        Array.isArray(this.config!.staticFiles) ||
+        (!Array.isArray(this.config!.staticFiles) &&
+          !staticFiles.disableIndexRouter)
+      ) {
+        throw new Error("The static files path can't include the API prefix!");
+      }
     }
 
     const router = ExpressRouter();
