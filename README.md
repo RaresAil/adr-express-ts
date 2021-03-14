@@ -18,6 +18,10 @@
 
 This package is a dependency injection for express with typescript using decorators and the [Action–Domain–Responder](https://en.wikipedia.org/wiki/Action–domain–responder) pattern.
 
+## Demos made with this library:
+
+- [OAuth2 Password Grant Server](https://github.com/RaresAil/express-oauth-password-grant-example)
+
 ## Getting Started
 
 #### Create
