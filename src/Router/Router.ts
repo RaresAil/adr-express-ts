@@ -675,15 +675,31 @@ export default class Router {
       router.use(...middlewares);
     }
 
-    router.use(
-      express.static(
-        this.getAbsolutePath(...staticFiles.directory),
-        staticFiles.options
-      )
-    );
-    router.get('/*', (req, res) =>
-      res.sendFile(this.getAbsolutePath(...staticFiles.directory, 'index.html'))
-    );
+    if (staticFiles.customStaticHandler) {
+      router.use(
+        staticFiles.customStaticHandler(
+          this.getAbsolutePath(...staticFiles.directory)
+        )
+      );
+    } else {
+      router.use(
+        express.static(
+          this.getAbsolutePath(...staticFiles.directory),
+          staticFiles.options
+        )
+      );
+    }
+
+    if (!staticFiles.disableIndexRouter) {
+      router.get('/*', (req, res) =>
+        res.sendFile(
+          this.getAbsolutePath(
+            ...staticFiles.directory,
+            staticFiles.indexFileName ?? 'index.html'
+          )
+        )
+      );
+    }
 
     try {
       this.lock?.acquire('app-middleware-injector', (done) => {

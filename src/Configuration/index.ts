@@ -1,4 +1,9 @@
-import express, { Response, Request, NextFunction } from 'express';
+import express, {
+  Response,
+  Request,
+  NextFunction,
+  RequestHandler
+} from 'express';
 import { Options as RateLimitOptions } from 'express-rate-limit';
 
 type ExpressStaticParams = Parameters<typeof express.static>;
@@ -10,6 +15,9 @@ export interface StaticFiles {
   path: string;
   options?: ExpressStaticParams[1];
   rateLimitOptions?: RateLimitOptions;
+  disableIndexRouter?: boolean;
+  customStaticHandler?: (path: string) => RequestHandler[];
+  indexFileName?: string;
 }
 
 export interface StaticFilesSubdomain extends StaticFiles {
@@ -101,7 +109,16 @@ export const defaultErrorHandler: ErroHandler = (
  * @property {?string} subdomain A subdomain is optional here
  * @property {?Array.<string | Function>} middlewares Middlewares
  * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
+ * (only works if 'customStaticHandler' is not changed)
  * @property {?rateLimit.Options} rateLimitOptions To disable the rate limiter, set to undefined
+ * @property {?boolean} disableIndexRouter If set to false, all the requests (if is not directly to a file)
+ * are sent to `index.html` or to `indexFileName` (if set).
+ * @property {?Function} customStaticHandler allows you to change the default static file handler
+ * e.g.
+ * ```js
+ * (path: string) => require('connect-gzip-static')(path, { /options here/ })
+ * ```
+ * @property {?string} indexFileName allows you to change the default index file (default: `index.html`)
  */
 /**
  * @static

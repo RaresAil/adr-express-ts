@@ -804,7 +804,7 @@ route is not found.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line120">line 120</a>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line129">line 129</a>
         </li>
       </ul>
     </dd>
@@ -983,7 +983,7 @@ route is not found.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line111">line 111</a>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line120">line 120</a>
         </li>
       </ul>
     </dd>
@@ -1216,7 +1216,8 @@ route is not found.</p>
         
 
         <td class="description last">
-          <p>Serve Static Options</p>
+          <p>Serve Static Options
+(only works if 'customStaticHandler' is not changed)</p>
           </td>
     </tr>
 
@@ -1254,6 +1255,121 @@ route is not found.</p>
 
         <td class="description last">
           <p>To disable the rate limiter, set to undefined</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>disableIndexRouter</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      boolean
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>If set to false, all the requests (if is not directly to a file)
+are sent to <code>index.html</code> or to <code>indexFileName</code> (if set).</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>customStaticHandler</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      function
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>allows you to change the default static file handler
+e.g.</p>
+<pre class="prettyprint source lang-js"><code>(path: string) => require('connect-gzip-static')(path, { /options here/ })
+</code></pre>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>indexFileName</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      string
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+
+            
+              &lt;nullable><br>
+            
+          </td>
+        
+
+        
+
+        <td class="description last">
+          <p>allows you to change the default index file (default: <code>index.html</code>)</p>
           </td>
     </tr>
 
@@ -1605,7 +1721,7 @@ route is not found.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line99">line 99</a>
+          <a href="Configuration_index.js.html">Configuration/index.js</a>, <a href="Configuration_index.js.html#line108">line 108</a>
         </li>
       </ul>
     </dd>
