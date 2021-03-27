@@ -2,6 +2,7 @@
 import rateLimit from 'express-rate-limit';
 import AsyncLock from 'async-lock';
 import path from 'path';
+import RE2 from 're2';
 import fs from 'fs';
 import express, {
   Application,
@@ -365,10 +366,11 @@ export default class Router {
           return;
         }
 
+        const searchRegExp = new RE2('//', 'gm');
         const apiPath = [this.APIPrefix, actionsPrefix, action.path ?? '']
           .join('')
           .trim()
-          .replace(/\/\//gm, '/');
+          .replace(searchRegExp, '/');
 
         if (apiPath?.trim() === '' || !action?.path) {
           return;
@@ -447,13 +449,6 @@ export default class Router {
           paramsInfoRaw.map(({ index: paramPosition, target: paramTarget }) => {
             paramsInfo[parseInt(paramPosition)] = paramTarget;
           });
-
-          this.debugLog(
-            'Action loaded %o %s %o',
-            functionData.method.toUpperCase(),
-            `${apiPath}${child}`,
-            functionData.name
-          );
 
           let middlewares: RequestHandler<any, any, any>[] = [];
 
@@ -537,6 +532,16 @@ export default class Router {
           ];
 
           router[functionData.method](child, ...middlewares);
+
+          this.debugLog(
+            'Action loaded %o %s %o',
+            functionData.method.toUpperCase(),
+            `${apiPath}${child}`
+              .trim()
+              .replace(searchRegExp, '/')
+              .replace(new RE2('/$', 'gm'), ''),
+            functionData.name
+          );
         });
 
         this.lock.acquire('app-middleware-injector', (done) => {
