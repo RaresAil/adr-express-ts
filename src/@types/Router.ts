@@ -8,8 +8,15 @@ export enum ActionMethods {
   GET = 'get',
   PUT = 'put',
   POST = 'post',
+  HEAD = 'head',
+  COPY = 'copy',
+  LOCK = 'lock',
+  TRACE = 'trace',
+  PURGE = 'purge',
   PATCH = 'patch',
-  DELETE = 'delete'
+  UNLOCK = 'unlock',
+  DELETE = 'delete',
+  OPTIONS = 'options'
 }
 
 export interface FunctionParamData {

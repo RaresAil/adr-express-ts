@@ -48,7 +48,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn generate:docs"
+      "pre-commit": "yarn generate:docs",
+      "pre-push": "yarn test"
     }
   },
   "repository": {
