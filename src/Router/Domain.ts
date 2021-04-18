@@ -1,3 +1,5 @@
+import hash from 'object-hash';
+
 import ExpressTS from '../app/ExpressTS';
 
 /**
@@ -30,8 +32,9 @@ export default (name: string): any => (constructor: any) => {
     throw new Error('The domain must be called first!');
   }
 
-  if (!ExpressTS.getData(constructor.name, 'domains')) {
-    ExpressTS.setData(constructor.name, name, 'domains');
+  const domainHash = hash(constructor);
+  if (!ExpressTS.getData(domainHash, 'domains')) {
+    ExpressTS.setData(domainHash, name, 'domains');
   }
 
   return constructor;

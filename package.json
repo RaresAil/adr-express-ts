@@ -66,6 +66,7 @@
     "@types/async-lock": "^1.1.2",
     "@types/express": "^4.17.11",
     "@types/express-rate-limit": "^5.1.1",
+    "@types/object-hash": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "braintree-jsdoc-template": "^3.3.0",
@@ -83,6 +84,7 @@
     "async-lock": "^1.2.8",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.6",
+    "object-hash": "^2.1.1",
     "re2": "^1.15.9"
   }
 }

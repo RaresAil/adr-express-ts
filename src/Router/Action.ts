@@ -1,3 +1,5 @@
+import hash from 'object-hash';
+
 import { Action } from '../@types/Router';
 import ExpressTS from '../app/ExpressTS';
 
@@ -24,15 +26,15 @@ import ExpressTS from '../app/ExpressTS';
 export default (path: string, middlewares?: (string | Function)[]): any => (
   constructor: any
 ) => {
-  const Original = constructor;
-  const action = ExpressTS.getData(Original.name, 'actions') as Action;
+  const actionHash = hash(constructor);
+  const action = ExpressTS.getData(actionHash, 'actions') as Action;
 
   if (!action) {
     ExpressTS.setData(
-      Original.name,
+      actionHash,
       {
-        target: Original,
-        instance: new Original(),
+        target: constructor,
+        instance: new constructor(),
         path,
         functions: [],
         middlewares
@@ -41,11 +43,11 @@ export default (path: string, middlewares?: (string | Function)[]): any => (
     );
   } else {
     ExpressTS.setData(
-      Original.name,
+      actionHash,
       {
         ...action,
-        target: Original,
-        instance: new Original(),
+        target: constructor,
+        instance: new constructor(),
         path,
         middlewares
       },
@@ -54,6 +56,6 @@ export default (path: string, middlewares?: (string | Function)[]): any => (
   }
 
   const _injectedAction: any = function () {};
-  ExpressTS.inject(_injectedAction, Original, 'action');
+  ExpressTS.inject(_injectedAction, constructor, 'action', actionHash);
   return _injectedAction;
 };
