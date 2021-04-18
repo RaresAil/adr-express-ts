@@ -1,3 +1,5 @@
+import hash from 'object-hash';
+
 import ExpressTS from '../app/ExpressTS';
 
 /**
@@ -17,13 +19,12 @@ import ExpressTS from '../app/ExpressTS';
  * }
  */
 export default function Inject(constructor: Function): any {
-  const Original = constructor;
-  if (!ExpressTS.getData(Original.name, 'injections')) {
-    ExpressTS.setData(Original.name, Original, 'injections');
+  const injectionHash = hash(constructor);
+  if (!ExpressTS.getData(injectionHash, 'injections')) {
+    ExpressTS.setData(injectionHash, constructor, 'injections');
   }
 
   const _injected: any = function () {};
-
-  ExpressTS.inject(_injected, Original, 'class');
+  ExpressTS.inject(_injected, constructor, 'class', injectionHash);
   return _injected;
 }

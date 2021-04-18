@@ -1,3 +1,5 @@
+import hash from 'object-hash';
+
 import ExpressTS from '../app/ExpressTS';
 
 /**
@@ -35,8 +37,9 @@ export default (name: string): any => (constructor: any) => {
     throw new Error('The responder must be called first!');
   }
 
-  if (!ExpressTS.getData(constructor.name, 'responders')) {
-    ExpressTS.setData(constructor.name, name, 'responders');
+  const responderHash = hash(constructor);
+  if (!ExpressTS.getData(responderHash, 'responders')) {
+    ExpressTS.setData(responderHash, name, 'responders');
   }
 
   return constructor;

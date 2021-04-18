@@ -3,7 +3,10 @@ import { NextFunction, Response, Request } from 'express';
 enum Params {
   ExpressRequest = 'express.request',
   ExpressResponse = 'express.response',
-  ExpressNext = 'express.next'
+  ExpressNext = 'express.next',
+  ExpressRequestBody = 'express.request.body',
+  ExpressRequestQuery = 'express.request.query',
+  ExpressRequestParams = 'express.request.params'
 }
 
 export const getParamValue = (
@@ -19,6 +22,12 @@ export const getParamValue = (
       return res;
     case Params.ExpressNext:
       return next;
+    case Params.ExpressRequestBody:
+      return req.body;
+    case Params.ExpressRequestQuery:
+      return req.query;
+    case Params.ExpressRequestParams:
+      return req.params;
     default:
       return undefined;
   }

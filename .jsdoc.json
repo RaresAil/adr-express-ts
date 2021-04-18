@@ -15,7 +15,7 @@
     "collapse": true,
     "resources": {
       "GitHub": "https://github.com/RaresAil/adr-express-ts",
-      "NPM": "https://github.com/RaresAil/adr-express-ts"
+      "NPM": "https://www.npmjs.com/package/@adr-express-ts/core"
     }
   },
   "opts": {

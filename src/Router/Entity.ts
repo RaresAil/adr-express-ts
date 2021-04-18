@@ -1,3 +1,5 @@
+import hash from 'object-hash';
+
 import ExpressTS from '../app/ExpressTS';
 
 /**
@@ -52,8 +54,9 @@ export default (name: string): any => (constructor: any) => {
     throw new Error('The entity must be called first!');
   }
 
-  if (!ExpressTS.getData(constructor.name, 'entities')) {
-    ExpressTS.setData(constructor.name, name, 'entities');
+  const entityHash = hash(constructor);
+  if (!ExpressTS.getData(entityHash, 'entities')) {
+    ExpressTS.setData(entityHash, name, 'entities');
   }
 
   return constructor;

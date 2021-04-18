@@ -1,14 +1,19 @@
+import hash from 'object-hash';
+
+import { default as ParamsEnum } from '../Router/Params';
 import { FunctionParamData } from '../@types/Router';
 import ExpressTS from './ExpressTS';
 
-export default (payload: any) => (
+export default (payload: ParamsEnum) => (
   target: any,
   propertyKey: string | symbol,
   parameterIndex: number
 ) => {
-  const { name } = target.constructor;
+  const actionHash = hash(target.constructor);
+
   let params: FunctionParamData[] =
-    (ExpressTS.getData(name, 'functionParams') as FunctionParamData[]) ?? [];
+    (ExpressTS.getData(actionHash, 'functionParams') as FunctionParamData[]) ??
+    [];
 
   params = [
     ...params,
@@ -19,5 +24,5 @@ export default (payload: any) => (
     } as FunctionParamData
   ];
 
-  ExpressTS.setData(name, params, 'functionParams');
+  ExpressTS.setData(actionHash, params, 'functionParams');
 };

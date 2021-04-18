@@ -48,9 +48,14 @@ export default abstract class ExpressTS {
     }
   }
 
-  static inject(target: any, source: Function, type: InjectType) {
+  static inject(
+    target: any,
+    source: Function,
+    type: InjectType,
+    hash?: string
+  ) {
     target.prototype = source.prototype;
-    target[this.symbols.name] = source.name;
+    target[this.symbols.name] = hash ?? source.name;
     target[this.symbols.type] = type;
   }
 
