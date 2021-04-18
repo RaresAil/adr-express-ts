@@ -14,7 +14,7 @@
 
 - [Documentation](https://raresail.github.io/adr-express-ts/)
 - [GitHub](https://github.com/RaresAil/adr-express-ts)
-- [NPM](https://www.npmjs.com/package/adr-express-ts)
+- [NPM](https://www.npmjs.com/package/@adr-express-ts/core)
 
 This package is a dependency injection for express with typescript using decorators and the [Action–Domain–Responder](https://en.wikipedia.org/wiki/Action–domain–responder) pattern.
 
