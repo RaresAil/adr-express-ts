@@ -227,7 +227,7 @@ export default class UserEntity implements InjectedEntity {
 ## Responder Model
 
 ```js
-import { Inject, Responder } from 'adr-express-ts';
+import { Inject, Responder } from '@adr-express-ts/core';
 import { Response } from 'express';
 
 @Inject
@@ -249,8 +249,8 @@ export default class DemoResponder {
 
 ```js
 import { Request, Response, NextFunction } from 'express';
-import { Middleware } from 'adr-express-ts/lib/@types';
-import { Inject } from 'adr-express-ts';
+import { Middleware } from '@adr-express-ts/core/lib/@types';
+import { Inject } from '@adr-express-ts/core';
 
 @Inject
 export default class AuthentificationMiddleware implements Middleware {
@@ -277,7 +277,7 @@ import {
   Request,
   Response,
   Retrive
-} from 'adr-express-ts';
+} from '@adr-express-ts/core';
 import {
   Request as ExpressRequest,
   Response as ExpressResponse
@@ -327,7 +327,7 @@ export default class DemoAction {
 ## Domain Model
 
 ```js
-import { Inject, Domain } from 'adr-express-ts';
+import { Inject, Domain } from '@adr-express-ts/core';
 
 @Inject
 @Domain('Demo')
@@ -345,8 +345,8 @@ export default class DemoDomain {
 ## Server.ts Example
 
 ```js
-import { Configuration, Inject, Retrive } from 'adr-express-ts';
-import { InjectedClass } from 'adr-express-ts/lib/@types';
+import { Configuration, Inject, Retrive } from '@adr-express-ts/core';
+import { InjectedClass } from '@adr-express-ts/core/lib/@types';
 import { Application } from 'express';
 
 @Inject

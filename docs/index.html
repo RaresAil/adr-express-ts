@@ -287,7 +287,7 @@ export default class UserEntity implements InjectedEntity {
 }
 </code></pre>
 <h2>Responder Model</h2>
-<pre class="prettyprint source lang-js"><code>import { Inject, Responder } from 'adr-express-ts';
+<pre class="prettyprint source lang-js"><code>import { Inject, Responder } from '@adr-express-ts/core';
 import { Response } from 'express';
 
 @Inject
@@ -306,8 +306,8 @@ export default class DemoResponder {
 </code></pre>
 <h2>Middleware Model</h2>
 <pre class="prettyprint source lang-js"><code>import { Request, Response, NextFunction } from 'express';
-import { Middleware } from 'adr-express-ts/lib/@types';
-import { Inject } from 'adr-express-ts';
+import { Middleware } from '@adr-express-ts/core/lib/@types';
+import { Inject } from '@adr-express-ts/core';
 
 @Inject
 export default class AuthentificationMiddleware implements Middleware {
@@ -331,7 +331,7 @@ export default class AuthentificationMiddleware implements Middleware {
   Request,
   Response,
   Retrive
-} from 'adr-express-ts';
+} from '@adr-express-ts/core';
 import {
   Request as ExpressRequest,
   Response as ExpressResponse
@@ -378,7 +378,7 @@ export default class DemoAction {
 }
 </code></pre>
 <h2>Domain Model</h2>
-<pre class="prettyprint source lang-js"><code>import { Inject, Domain } from 'adr-express-ts';
+<pre class="prettyprint source lang-js"><code>import { Inject, Domain } from '@adr-express-ts/core';
 
 @Inject
 @Domain('Demo')
@@ -393,8 +393,8 @@ export default class DemoDomain {
 }
 </code></pre>
 <h2>Server.ts Example</h2>
-<pre class="prettyprint source lang-js"><code>import { Configuration, Inject, Retrive } from 'adr-express-ts';
-import { InjectedClass } from 'adr-express-ts/lib/@types';
+<pre class="prettyprint source lang-js"><code>import { Configuration, Inject, Retrive } from '@adr-express-ts/core';
+import { InjectedClass } from '@adr-express-ts/core/lib/@types';
 import { Application } from 'express';
 
 @Inject
