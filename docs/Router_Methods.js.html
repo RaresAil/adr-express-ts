@@ -128,6 +128,7 @@ var defineMethod_1 = __importDefault(require("../app/defineMethod"));
  *    [\@Get]{@link Get}('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
  *    public findAll(
  *      [\@Request]{@link @Request} req: Request,
+ *      [\@Query]{@link @Query} query: any,
  *      [\@Response]{@link @Response} res: Response
  *    ): Promise&lt;any> {
  *      return this.[responder]{@link Responder}!.[success]{@link Responder}(res);
@@ -136,7 +137,7 @@ var defineMethod_1 = __importDefault(require("../app/defineMethod"));
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
  *    [\@Get]{@link Get}('/sub-path/:id', ['SubPathMiddleware'])
  *    public findById(
- *      [\@Request]{@link @Request} req: Request,
+ *      [\@Params]{@link @Params} params: any,
  *      [\@Response]{@link @Response} res: Response
  *    ): Promise&lt;any> {
  *      return this.[responder]{@link Responder}!.[success]{@link Responder}(res);
@@ -168,7 +169,7 @@ exports.Get = Get;
  *
  *    [\@Post]{@link Post}('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
  *    public saveItem(
- *      [\@Request]{@link @Request} req: Request,
+ *      [\@Body]{@link @Body} body: any,
  *      [\@Response]{@link @Response} res: Response
  *    ): Promise&lt;any> {
  *      const { userId } = (

@@ -127,6 +127,74 @@
         
             
 
+<h4 class="name" id=".@Body">
+  <span class="type-signature">(static) </span>@Body<span class="type-signature"> :Express.Request.Body</span>
+</h4>
+
+
+
+
+  <div class="description">
+    <p>This decorator is used to post the Express's Request Body when using an <a href="module-Router.html#.Action">@Action</a>.</p>
+<p>For an example usage of <a href="module-Router.html#.@Body">@Body</a>. Check <a href="module-Router.html#.Post">@Post</a></p>
+  </div>
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Parameters.js.html">Router/Parameters.js</a>, <a href="Router_Parameters.js.html#line39">line 39</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+          
+        
+            
+
 <h4 class="name" id=".@Next">
   <span class="type-signature">(static) </span>@Next<span class="type-signature"> :Express.NextFunction</span>
 </h4>
@@ -174,6 +242,142 @@
       <ul class="dummy">
         <li>
           <a href="Router_Parameters.js.html">Router/Parameters.js</a>, <a href="Router_Parameters.js.html#line29">line 29</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+          
+        
+            
+
+<h4 class="name" id=".@Params">
+  <span class="type-signature">(static) </span>@Params<span class="type-signature"> :Express.Request.Params</span>
+</h4>
+
+
+
+
+  <div class="description">
+    <p>This decorator is used to get the Express's Request Params when using an <a href="module-Router.html#.Action">@Action</a>.</p>
+<p>For an example usage of <a href="module-Router.html#.@Params">@Params</a>. Check <a href="module-Router.html#.Get">@Get</a></p>
+  </div>
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Parameters.js.html">Router/Parameters.js</a>, <a href="Router_Parameters.js.html#line59">line 59</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+          
+        
+            
+
+<h4 class="name" id=".@Query">
+  <span class="type-signature">(static) </span>@Query<span class="type-signature"> :Express.Request.Query</span>
+</h4>
+
+
+
+
+  <div class="description">
+    <p>This decorator is used to get the Express's Request Query when using an <a href="module-Router.html#.Action">@Action</a>.</p>
+<p>For an example usage of <a href="module-Router.html#.@Query">@Query</a>. Check <a href="module-Router.html#.Get">@Get</a></p>
+  </div>
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="Router_Parameters.js.html">Router/Parameters.js</a>, <a href="Router_Parameters.js.html#line49">line 49</a>
         </li>
       </ul>
     </dd>
@@ -739,7 +943,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line192">line 192</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line193">line 193</a>
         </li>
       </ul>
     </dd>
@@ -981,7 +1185,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line164">line 164</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line165">line 165</a>
         </li>
       </ul>
     </dd>
@@ -1598,7 +1802,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line43">line 43</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line44">line 44</a>
         </li>
       </ul>
     </dd>
@@ -1644,6 +1848,7 @@ export default class ActionName {
    <a href="module-Router.html#.Get">@Get</a>('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
    public findAll(
      <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Query">@Query</a> query: any,
      <a href="module-Router.html#.@Response">@Response</a> res: Response
    ): Promise&lt;any> {
      return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">success</a>(res);
@@ -1652,7 +1857,7 @@ export default class ActionName {
    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
    <a href="module-Router.html#.Get">@Get</a>('/sub-path/:id', ['SubPathMiddleware'])
    public findById(
-     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Params">@Params</a> params: any,
      <a href="module-Router.html#.@Response">@Response</a> res: Response
    ): Promise&lt;any> {
      return this.<a href="module-Router.html#.Responder">responder</a>!.<a href="module-Router.html#.Responder">success</a>(res);
@@ -1848,7 +2053,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line220">line 220</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line221">line 221</a>
         </li>
       </ul>
     </dd>
@@ -2090,7 +2295,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line332">line 332</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line333">line 333</a>
         </li>
       </ul>
     </dd>
@@ -2332,7 +2537,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line248">line 248</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line249">line 249</a>
         </li>
       </ul>
     </dd>
@@ -2574,7 +2779,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line136">line 136</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line137">line 137</a>
         </li>
       </ul>
     </dd>
@@ -2816,7 +3021,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line78">line 78</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line79">line 79</a>
         </li>
       </ul>
     </dd>
@@ -2864,7 +3069,7 @@ export default class ActionName {
 
    <a href="module-Router.html#.Post">@Post</a>('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
    public saveItem(
-     <a href="module-Router.html#.@Request">@Request</a> req: Request,
+     <a href="module-Router.html#.@Body">@Body</a> body: any,
      <a href="module-Router.html#.@Response">@Response</a> res: Response
    ): Promise&lt;any> {
      const { userId } = (
@@ -3063,7 +3268,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line304">line 304</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line305">line 305</a>
         </li>
       </ul>
     </dd>
@@ -3305,7 +3510,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line106">line 106</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line107">line 107</a>
         </li>
       </ul>
     </dd>
@@ -3729,7 +3934,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line276">line 276</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line277">line 277</a>
         </li>
       </ul>
     </dd>
@@ -3971,7 +4176,7 @@ as strings or function middlewares.</p>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line360">line 360</a>
+          <a href="Router_Methods.js.html">Router/Methods.js</a>, <a href="Router_Methods.js.html#line361">line 361</a>
         </li>
       </ul>
     </dd>

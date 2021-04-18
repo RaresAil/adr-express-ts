@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## **v2.0.0**
+
+### Added
+
+- More HTTP Metods
+- @Body decorator for methods
+- @Query decorator for methods
+- @Params decorator for methods
+
+## **v1.2.2**
+
+### Added
+
+- RE2 for Regex
+
 ## **v1.2.1**
 
 ### Fixed

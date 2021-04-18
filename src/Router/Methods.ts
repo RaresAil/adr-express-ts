@@ -20,6 +20,7 @@ import defineMethod from '../app/defineMethod';
  *    [\@Get]{@link module:Router.Get}('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
  *    public findAll(
  *      [\@Request]{@link module:Router.@Request} req: Request,
+ *      [\@Query]{@link module:Router.@Query} query: any,
  *      [\@Response]{@link module:Router.@Response} res: Response
  *    ): Promise<any> {
  *      return this.[responder]{@link module:Router.Responder}!.[success]{@link module:Router.Responder}(res);
@@ -28,7 +29,7 @@ import defineMethod from '../app/defineMethod';
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
  *    [\@Get]{@link module:Router.Get}('/sub-path/:id', ['SubPathMiddleware'])
  *    public findById(
- *      [\@Request]{@link module:Router.@Request} req: Request,
+ *      [\@Params]{@link module:Router.@Params} params: any,
  *      [\@Response]{@link module:Router.@Response} res: Response
  *    ): Promise<any> {
  *      return this.[responder]{@link module:Router.Responder}!.[success]{@link module:Router.Responder}(res);
@@ -59,7 +60,7 @@ export const Get = (child?: string, middlewares?: (string | Function)[]): any =>
  *
  *    [\@Post]{@link module:Router.Post}('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
  *    public saveItem(
- *      [\@Request]{@link module:Router.@Request} req: Request,
+ *      [\@Body]{@link module:Router.@Body} body: any,
  *      [\@Response]{@link module:Router.@Response} res: Response
  *    ): Promise<any> {
  *      const { userId } = (

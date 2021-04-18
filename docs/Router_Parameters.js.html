@@ -106,7 +106,7 @@ var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
     return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Next = exports.Response = exports.Request = void 0;
+exports.Params = exports.Query = exports.Body = exports.Next = exports.Response = exports.Request = void 0;
 var defineParameter_1 = __importDefault(require("../app/defineParameter"));
 var Params_1 = __importDefault(require("./Params"));
 /**
@@ -139,6 +139,36 @@ exports.Response = defineParameter_1.default(Params_1.default.ExpressResponse);
  * @memberof module:Router
  */
 exports.Next = defineParameter_1.default(Params_1.default.ExpressNext);
+/**
+ * This decorator is used to post the Express's Request Body when using an [\@Action]{@link Action}.
+ *
+ * For an example usage of [\@Body]{@link @Body}. Check [\@Post]{@link Post}
+ *
+ * @static
+ * @member {Express.Request.Body} @Body
+ * @memberof module:Router
+ */
+exports.Body = defineParameter_1.default(Params_1.default.ExpressRequestBody);
+/**
+ * This decorator is used to get the Express's Request Query when using an [\@Action]{@link Action}.
+ *
+ * For an example usage of [\@Query]{@link @Query}. Check [\@Get]{@link Get}
+ *
+ * @static
+ * @member {Express.Request.Query} @Query
+ * @memberof module:Router
+ */
+exports.Query = defineParameter_1.default(Params_1.default.ExpressRequestQuery);
+/**
+ * This decorator is used to get the Express's Request Params when using an [\@Action]{@link Action}.
+ *
+ * For an example usage of [\@Params]{@link @Params}. Check [\@Get]{@link Get}
+ *
+ * @static
+ * @member {Express.Request.Params} @Params
+ * @memberof module:Router
+ */
+exports.Params = defineParameter_1.default(Params_1.default.ExpressRequestParams);
 //# sourceMappingURL=Parameters.js.map</code></pre>
   </article>
 </section>
