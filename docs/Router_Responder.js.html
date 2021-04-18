@@ -106,6 +106,7 @@ var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
     return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var object_hash_1 = __importDefault(require("object-hash"));
 var ExpressTS_1 = __importDefault(require("../app/ExpressTS"));
 /**
  * This decorator is used to define a Responder.
@@ -141,8 +142,9 @@ exports.default = (function (name) { return function (constructor) {
     if (constructor.name === '_injected') {
         throw new Error('The responder must be called first!');
     }
-    if (!ExpressTS_1.default.getData(constructor.name, 'responders')) {
-        ExpressTS_1.default.setData(constructor.name, name, 'responders');
+    var responderHash = object_hash_1.default(constructor);
+    if (!ExpressTS_1.default.getData(responderHash, 'responders')) {
+        ExpressTS_1.default.setData(responderHash, name, 'responders');
     }
     return constructor;
 }; });

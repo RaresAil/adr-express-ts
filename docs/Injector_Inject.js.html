@@ -106,6 +106,7 @@ var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
     return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var object_hash_1 = __importDefault(require("object-hash"));
 var ExpressTS_1 = __importDefault(require("../app/ExpressTS"));
 /**
  * This decorator is used to inject a class.
@@ -124,12 +125,12 @@ var ExpressTS_1 = __importDefault(require("../app/ExpressTS"));
  * }
  */
 function Inject(constructor) {
-    var Original = constructor;
-    if (!ExpressTS_1.default.getData(Original.name, 'injections')) {
-        ExpressTS_1.default.setData(Original.name, Original, 'injections');
+    var injectionHash = object_hash_1.default(constructor);
+    if (!ExpressTS_1.default.getData(injectionHash, 'injections')) {
+        ExpressTS_1.default.setData(injectionHash, constructor, 'injections');
     }
     var _injected = function () { };
-    ExpressTS_1.default.inject(_injected, Original, 'class');
+    ExpressTS_1.default.inject(_injected, constructor, 'class', injectionHash);
     return _injected;
 }
 exports.default = Inject;

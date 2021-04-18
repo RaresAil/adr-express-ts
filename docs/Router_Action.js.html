@@ -117,6 +117,7 @@ var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
     return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var object_hash_1 = __importDefault(require("object-hash"));
 var ExpressTS_1 = __importDefault(require("../app/ExpressTS"));
 /**
  * This decorator is used to define an action.
@@ -139,23 +140,23 @@ var ExpressTS_1 = __importDefault(require("../app/ExpressTS"));
  * }
  */
 exports.default = (function (path, middlewares) { return function (constructor) {
-    var Original = constructor;
-    var action = ExpressTS_1.default.getData(Original.name, 'actions');
+    var actionHash = object_hash_1.default(constructor);
+    var action = ExpressTS_1.default.getData(actionHash, 'actions');
     if (!action) {
-        ExpressTS_1.default.setData(Original.name, {
-            target: Original,
-            instance: new Original(),
+        ExpressTS_1.default.setData(actionHash, {
+            target: constructor,
+            instance: new constructor(),
             path: path,
             functions: [],
             middlewares: middlewares
         }, 'actions');
     }
     else {
-        ExpressTS_1.default.setData(Original.name, __assign(__assign({}, action), { target: Original, instance: new Original(), path: path,
+        ExpressTS_1.default.setData(actionHash, __assign(__assign({}, action), { target: constructor, instance: new constructor(), path: path,
             middlewares: middlewares }), 'actions');
     }
     var _injectedAction = function () { };
-    ExpressTS_1.default.inject(_injectedAction, Original, 'action');
+    ExpressTS_1.default.inject(_injectedAction, constructor, 'action', actionHash);
     return _injectedAction;
 }; });
 //# sourceMappingURL=Action.js.map</code></pre>

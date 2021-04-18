@@ -1,9 +1,10 @@
 import hash from 'object-hash';
 
+import { default as ParamsEnum } from '../Router/Params';
 import { FunctionParamData } from '../@types/Router';
 import ExpressTS from './ExpressTS';
 
-export default (payload: any) => (
+export default (payload: ParamsEnum) => (
   target: any,
   propertyKey: string | symbol,
   parameterIndex: number
