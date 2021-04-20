@@ -1,5 +1,4 @@
 /* eslint-disable require-jsdoc */
-import rateLimit from 'express-rate-limit';
 import AsyncLock from 'async-lock';
 import path from 'path';
 import RE2 from 're2';
@@ -13,7 +12,7 @@ import express, {
   RequestHandler
 } from 'express';
 
-import { Inject, Retrive, Injector } from '../Injector';
+import { Inject, Retrieve, Injector } from '../Injector';
 import { Action, Middleware, RouteCallback } from '../@types';
 import { AsyncCallback, HandleMiddleware } from '../utils';
 import ExpressTS from '../app/ExpressTS';
@@ -24,23 +23,23 @@ import {
   defaultErrorHandler,
   NotFoundHandler,
   Configuration,
-  ErroHandler,
+  ErrorHandler,
   StaticFiles
 } from '../Configuration';
 
 @Inject
 export default class Router {
-  @Retrive('Express')
+  @Retrieve('Express')
   private application?: Application;
 
-  @Retrive('Configuration')
+  @Retrieve('Configuration')
   private config?: Configuration;
 
-  @Retrive('Middlewares')
+  @Retrieve('Middlewares')
   private middlewares?: (string | Function)[];
 
   private readonly lock: AsyncLock;
-  private readonly errorHandler: ErroHandler;
+  private readonly errorHandler: ErrorHandler;
   private readonly notFoundHandler: NotFoundHandler;
 
   private debugLog(...args: any[]) {
@@ -658,7 +657,7 @@ export default class Router {
     }
 
     const router = ExpressRouter();
-    let middlewares: RouteCallback[] = (staticFiles.middlewares ?? [])
+    const middlewares: RouteCallback[] = (staticFiles.middlewares ?? [])
       .map((middleware) => {
         if (typeof middleware === 'string') {
           const mid = Injector.get<Middleware | undefined | null>(middleware);
@@ -702,16 +701,6 @@ export default class Router {
         return null;
       })
       .filter((m) => !!m) as RouteCallback[];
-
-    if (staticFiles.rateLimitOptions) {
-      middlewares = [
-        AsyncCallback(
-          rateLimit(staticFiles.rateLimitOptions) as any,
-          this.errorHandler
-        ),
-        ...middlewares
-      ];
-    }
 
     if (middlewares.length > 0) {
       router.use(...middlewares);

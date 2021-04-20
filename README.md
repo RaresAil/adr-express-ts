@@ -63,7 +63,7 @@ If you have Yarn installed, the CLI will ask if you want to use it, if you say `
 
 #### Dependency Selector
 
-For the next part you can choose if you need more dependencies (They will be automaticly injected).
+For the next part you can choose if you need more dependencies (They will be automatically injected).
 ![Question 2](scripts/resources/cli-q-2.png)
 
 #### Dialect Selector (Only for Sequelize) and complete extra information
@@ -106,7 +106,7 @@ After everything is installed, you should see the following output.
 
 # If you have /actions/v1/Action.ts, all the actions in v1 will have the prefix v1
 
-# Are automatically injectetd!
+# Are automatically injected!
 
 - - action.ts
 
@@ -119,15 +119,15 @@ After everything is installed, you should see the following output.
 - /domain
 - - /entities
 
-# Here you define the entiry (They are accessed with @Retrive('Entity.NAME') or from your ORM)
+# Here you define the entity (They are accessed with @Retrieve('Entity.NAME') or from your ORM)
 
-# Are automatically injectetd!
+# Are automatically injected!
 
 - - - entity.ts
 
-# Here you define the domain (They are accessed with @Retrive('Domain.NAME'))
+# Here you define the domain (They are accessed with @Retrieve('Domain.NAME'))
 
-# Are automatically injectetd!
+# Are automatically injected!
 
 - - domain.ts
 
@@ -149,9 +149,9 @@ After everything is installed, you should see the following output.
 
 - /responders
 
-# Here you define the domains (They are accessed with @Retrive('Responder.NAME'))
+# Here you define the domains (They are accessed with @Retrieve('Responder.NAME'))
 
-# Are automatically injectetd!
+# Are automatically injected!
 
 - - responder.ts
 
@@ -174,11 +174,7 @@ Injector.setup({
   },
   staticFiles: {
     path: '/',
-    directory: ['public'],
-    rateLimitOptions: {
-      windowMs: 5 * 60 * 1000,
-      max: 100
-    }
+    directory: ['public']
   },
   errorHandler: undefined /* If undefined, the default error handler will be used. */,
   notFoundHandler: undefined /* If undefined, the default not found handler will be used. */
@@ -193,7 +189,7 @@ This model is for Mongoose.
 @Inject
 @Entity('User')
 export default class UserEntity implements InjectedEntity {
-  @Retrive('Mongoose')
+  @Retrieve('Mongoose')
   private mongoose?: MongooseClass;
 
   async onLoad(): Promise<void> {
@@ -253,7 +249,7 @@ import { Middleware } from '@adr-express-ts/core/lib/@types';
 import { Inject } from '@adr-express-ts/core';
 
 @Inject
-export default class AuthentificationMiddleware implements Middleware {
+export default class AuthenticationMiddleware implements Middleware {
   public async middleware(
     req: Request,
     res: Response,
@@ -276,7 +272,7 @@ import {
   Delete,
   Request,
   Response,
-  Retrive
+  Retrieve
 } from '@adr-express-ts/core';
 import {
   Request as ExpressRequest,
@@ -288,13 +284,13 @@ import DemoDomain from '../domain/DemoDomain';
 
 @Action('/demo', ['MiddlewareHere'])
 export default class DemoAction {
-  @Retrive('Responder.Demo')
+  @Retrieve('Responder.Demo')
   private responder?: DemoResponder;
 
-  @Retrive('Domain.Demo')
+  @Retrieve('Domain.Demo')
   private domain?: DemoDomain;
 
-  @Get('/demo1', ['MiddlwareHere'])
+  @Get('/demo1', ['MiddlewareHere'])
   public findAll(
     @Request req: ExpressRequest,
     @Response res: ExpressResponse
@@ -345,19 +341,19 @@ export default class DemoDomain {
 ## Server.ts Example
 
 ```js
-import { Configuration, Inject, Retrive } from '@adr-express-ts/core';
+import { Configuration, Inject, Retrieve } from '@adr-express-ts/core';
 import { InjectedClass } from '@adr-express-ts/core/lib/@types';
 import { Application } from 'express';
 
 @Inject
 export default class Server implements InjectedClass {
-  @Retrive('ExpressApp')
+  @Retrieve('ExpressApp')
   private application?: Application;
 
-  @Retrive('Configuration')
+  @Retrieve('Configuration')
   private config?: Configuration;
 
-  @Retrive('Middlewares')
+  @Retrieve('Middlewares')
   private middlewares?: any;
 
   public async onReady(): Promise<void> {

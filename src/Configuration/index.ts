@@ -4,7 +4,6 @@ import express, {
   NextFunction,
   RequestHandler
 } from 'express';
-import { Options as RateLimitOptions } from 'express-rate-limit';
 
 type ExpressStaticParams = Parameters<typeof express.static>;
 
@@ -14,7 +13,6 @@ export interface StaticFiles {
   subdomain?: string;
   path: string;
   options?: ExpressStaticParams[1];
-  rateLimitOptions?: RateLimitOptions;
   disableIndexRouter?: boolean;
   customStaticHandler?: (path: string) => RequestHandler[];
   indexFileName?: string;
@@ -24,7 +22,7 @@ export interface StaticFilesSubdomain extends StaticFiles {
   subdomain: string;
 }
 
-export interface ErroHandler {
+export interface ErrorHandler {
   (req: Request, res: Response, next: NextFunction, error: any): Response<any>;
 }
 
@@ -42,7 +40,7 @@ export interface Configuration {
   apiPrefix: string;
   debug: ConfigurationDebug;
   staticFiles?: StaticFilesSubdomain[] | StaticFiles;
-  errorHandler?: ErroHandler;
+  errorHandler?: ErrorHandler;
   notFoundHandler?: NotFoundHandler;
 }
 
@@ -56,7 +54,7 @@ export const defaultNotFoundHandler: NotFoundHandler = async (
   });
 };
 
-export const defaultErrorHandler: ErroHandler = (
+export const defaultErrorHandler: ErrorHandler = (
   req,
   res,
   next,
@@ -84,7 +82,7 @@ export const defaultErrorHandler: ErroHandler = (
  * @property {module:Configuration.ConfigurationDebug} debug The debug functions
  * @property {?(Array<module:Configuration.StaticFilesSubdomain> | module:Configuration.StaticFiles)} staticFiles
  * Static files is used to serve static files
- * @property {?module:Configuration.ErroHandler} errorHandler All the thrown errors and the ones
+ * @property {?module:Configuration.ErrorHandler} errorHandler All the thrown errors and the ones
  * from next() will be caught in the errorHandler.
  * @property {?module:Configuration.NotFoundHandler} notFoundHandler This handler is used when the
  * route is not found.
@@ -110,7 +108,6 @@ export const defaultErrorHandler: ErroHandler = (
  * @property {?Array.<string | Function>} middlewares Middlewares
  * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
  * (only works if 'customStaticHandler' is not changed)
- * @property {?rateLimit.Options} rateLimitOptions To disable the rate limiter, set to undefined
  * @property {?boolean} disableIndexRouter If set to false, all the requests (if is not directly to a file)
  * are sent to `index.html` or to `indexFileName` (if set).
  * @property {?Function} customStaticHandler allows you to change the default static file handler
@@ -130,7 +127,6 @@ export const defaultErrorHandler: ErroHandler = (
  * @property {string} subdomain The subdomain is required.
  * @property {?Array.<string | Function>} middlewares Middlewares
  * @property {?serveStatic.ServeStaticOptions} options Serve Static Options
- * @property {?rateLimit.Options} rateLimitOptions To disable the rate limiter, set to undefined
  */
 /**
  * @static
@@ -143,7 +139,7 @@ export const defaultErrorHandler: ErroHandler = (
  */
 /**
  * @static
- * @member ErroHandler
+ * @member ErrorHandler
  * @type {Response<any>}
  *
  * @property {Express.Request} req The Express's Request

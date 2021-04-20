@@ -19,7 +19,7 @@ import ExpressTS from '../app/ExpressTS';
  * [\@Inject]{@link module:Injector.Inject}
  * [\@Entity]{@link module:Router.Entity}('Name')
  * export default class UserEntity implements [InjectedEntity]{@link module:Injector~InjectedEntity} {
- *    [\@Retrive]{@link module:Injector.Retrive}('Mongoose')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Mongoose')
  *    private mongoose?: MongooseClass;
  *
  *    public async [onLoad]{@link module:Injector~InjectedEntity.onLoad}(): Promise<void> {

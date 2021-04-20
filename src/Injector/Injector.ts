@@ -28,7 +28,7 @@ export default abstract class Injector {
 
   /**
    * This function is used to get an injected object/variable.
-   * If you have a class, you can use the [\@Retrive]{@link module:Injector.Retrive}
+   * If you have a class, you can use the [\@Retrieve]{@link module:Injector.Retrieve}
    * decorator
    * @param {string} name The name of the object/variable.
    * @return {T | null}
@@ -57,7 +57,7 @@ export default abstract class Injector {
     type: InjectType = InjectType.Class
   ): void {
     if (!value) {
-      throw new Error('A value is requierd for injection');
+      throw new Error('A value is required for injection');
     }
 
     const injectedName = ExpressTS.getInjectedField(value, 'name');

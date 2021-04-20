@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { RouteCallback } from '../@types/Router';
 
-import { ErroHandler } from '../Configuration';
+import { ErrorHandler } from '../Configuration';
 
-export const AsyncCallback = (fn: RouteCallback, errorHandler: ErroHandler) => (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) =>
+export const AsyncCallback = (
+  fn: RouteCallback,
+  errorHandler: ErrorHandler
+) => (req: Request, res: Response, next: NextFunction) =>
   Promise.resolve(fn(req, res, next)).catch((e) => {
     return errorHandler(req, res, next, e);
   });
