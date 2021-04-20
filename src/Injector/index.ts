@@ -1,5 +1,5 @@
 /** @module Injector **/
 
 export { default as Injector } from './Injector';
-export { default as Retrive } from './Retrive';
+export { default as Retrieve } from './Retrieve';
 export { default as Inject } from './Inject';

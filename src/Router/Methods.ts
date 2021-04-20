@@ -14,7 +14,7 @@ import defineMethod from '../app/defineMethod';
  * @example <caption>Example usage of [\@Get]{@link module:Router.Get}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    [\@Get]{@link module:Router.Get}('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
@@ -52,10 +52,10 @@ export const Get = (child?: string, middlewares?: (string | Function)[]): any =>
  * @example <caption>Example usage of [\@Post]{@link module:Router.Post}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
- *    [\@Retrive]{@link module:Injector.Retrive}('Domain.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Domain.Name')
  *    private [domain]{@link module:Router.Domain}?: [DomainName]{@link module:Router.Domain};
  *
  *    [\@Post]{@link module:Router.Post}('/sub-path', ['SubPathMiddleware']) // The url will be /api/path/sub-path
@@ -88,7 +88,7 @@ export const Post = (
  * @example <caption>Example usage of [\@Put]{@link module:Router.Put}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -117,7 +117,7 @@ export const Put = (child?: string, middlewares?: (string | Function)[]): any =>
  * @example <caption>Example usage of [\@Patch]{@link module:Router.Patch}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -148,7 +148,7 @@ export const Patch = (
  * @example <caption>Example usage of [\@Delete]{@link module:Router.Delete}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -179,7 +179,7 @@ export const Delete = (
  * @example <caption>Example usage of [\@Copy]{@link module:Router.Copy}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -210,7 +210,7 @@ export const Copy = (
  * @example <caption>Example usage of [\@Head]{@link module:Router.Head}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -241,7 +241,7 @@ export const Head = (
  * @example <caption>Example usage of [\@Options]{@link module:Router.Options}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -272,7 +272,7 @@ export const Options = (
  * @example <caption>Example usage of [\@Trace]{@link module:Router.Trace}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -303,7 +303,7 @@ export const Trace = (
  * @example <caption>Example usage of [\@Purge]{@link module:Router.Purge}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -334,7 +334,7 @@ export const Purge = (
  * @example <caption>Example usage of [\@Lock]{@link module:Router.Lock}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)
@@ -365,7 +365,7 @@ export const Lock = (
  * @example <caption>Example usage of [\@Unlock]{@link module:Router.Unlock}.</caption>
  * [\@Action]{@link module:Router.Action}('/path', ['ClassMiddleware', functionMiddleware])
  * export default class ActionName {
- *    [\@Retrive]{@link module:Injector.Retrive}('Responder.Name')
+ *    [\@Retrieve]{@link module:Injector.Retrieve}('Responder.Name')
  *    private [responder]{@link module:Router.Responder}?: [ResponderName]{@link module:Router.Responder};
  *
  *    // The url will be /api/path/sub-path/:id (where :id is a path parameter)

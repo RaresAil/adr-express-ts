@@ -47,8 +47,8 @@ const options = require('./testing-config.json');
           .readFileSync(itemPath, {
             encoding: 'utf8'
           })
-          .replace(/adr\-express\-ts\/lib/gm, localLib)
-          .replace(/\'adr\-express\-ts\'/gm, `'${localLib}'`)
+          .replace(/\@adr\-express\-ts\/core\/lib/gm, localLib)
+          .replace(/\'\@adr\-express\-ts\/core\'/gm, `'${localLib}'`)
       );
     });
   };

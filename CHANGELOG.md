@@ -2,11 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## **v2.1.0**
+
+### Removed
+
+- Removed express-rate-limit as a required dependency
+
+### Fixes
+
+- Typos
+
 ## **v2.0.0**
 
 ### Added
 
-- More HTTP Metods
+- More HTTP Methods
 - @Body decorator for methods
 - @Query decorator for methods
 - @Params decorator for methods

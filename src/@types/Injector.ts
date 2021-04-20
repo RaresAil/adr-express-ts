@@ -46,7 +46,7 @@ export interface Middleware<
  *
  * @example <caption>Example usage of [Middleware]{@link module:Injector~Middleware}.</caption>
  * [\@Inject]{@link module:Injector.Inject}
- * export default class AuthentificationMiddleware implements [Middleware]{@link module:Injector~Middleware} {
+ * export default class AuthenticationMiddleware implements [Middleware]{@link module:Injector~Middleware} {
  *    public async [middleware]{@link module:Injector~Middleware.middleware}(
  *      req: Request,
  *      res: Response,
