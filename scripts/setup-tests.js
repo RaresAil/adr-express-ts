@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 
 const options = require('./testing-config.json');
+const libPackage = require('../package.json');
 
 (() => {
   const testLocation = path.join(__dirname, options.location);
@@ -57,10 +58,25 @@ const options = require('./testing-config.json');
   log(
     execSync(`git clone ${options.source} "${testLocation}"`).toString('utf8')
   );
-  log(execSync(`cd "${testLocation}" && yarn`).toString('utf8'));
-
   replaceFilesInDir(testLocationSrc);
 
+  const packagePath = path.join(testLocation, 'package.json');
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    dependencies: { [libPackage.name]: _, ...deps },
+    ...package
+  } = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+
+  package.dependencies = {
+    ...deps,
+    ...libPackage.dependencies
+  };
+
+  fs.writeFileSync(packagePath, JSON.stringify(package, null, 2), {
+    encoding: 'utf8'
+  });
+
+  log(execSync(`cd "${testLocation}" && yarn`).toString('utf8'));
   log(execSync(`cd "${testLocation}" && yarn test`).toString('utf8'));
   clean();
 })();

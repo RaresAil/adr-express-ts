@@ -1,7 +1,6 @@
 /* eslint-disable require-jsdoc */
 import AsyncLock from 'async-lock';
 import path from 'path';
-import RE2 from 're2';
 import fs from 'fs';
 import express, {
   Application,
@@ -365,7 +364,7 @@ export default class Router {
           return;
         }
 
-        const searchRegExp = new RE2('//', 'gm');
+        const searchRegExp = new RegExp('//', 'gm');
         const apiPath = [this.APIPrefix, actionsPrefix, action.path ?? '']
           .join('')
           .trim()
@@ -538,7 +537,7 @@ export default class Router {
             `${apiPath}${child}`
               .trim()
               .replace(searchRegExp, '/')
-              .replace(new RE2('/$', 'gm'), ''),
+              .replace(new RegExp('/$', 'gm'), ''),
             functionData.name
           );
         });
