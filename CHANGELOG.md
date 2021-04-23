@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## **v2.1.1**
+
+### Removed
+
+- RE2
+
 ## **v2.1.0**
 
 ### Removed
