@@ -61,7 +61,7 @@
   "homepage": "https://github.com/RaresAil/adr-express-ts#readme",
   "devDependencies": {
     "@types/async-lock": "^1.1.2",
-    "@types/express": "^4.17.11",
+    "@types/express": "^4.17.12",
     "@types/object-hash": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
