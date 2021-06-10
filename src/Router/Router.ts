@@ -1,19 +1,20 @@
 /* eslint-disable require-jsdoc */
 import AsyncLock from 'async-lock';
 import path from 'path';
+import RE2 from 're2';
 import fs from 'fs';
 import express, {
-  Application,
-  Router as ExpressRouter,
   Response as ExpressResponse,
   Request as ExpressRequest,
+  Router as ExpressRouter,
+  RequestHandler,
   NextFunction,
-  RequestHandler
+  Application
 } from 'express';
 
-import { Inject, Retrieve, Injector } from '../Injector';
 import { Action, Middleware, RouteCallback } from '../@types';
 import { AsyncCallback, HandleMiddleware } from '../utils';
+import { Inject, Retrieve, Injector } from '../Injector';
 import ExpressTS from '../app/ExpressTS';
 import { getParamValue } from './Params';
 import {
@@ -120,9 +121,8 @@ export default class Router {
         this.lock.acquire('app-middleware-injector', (done) => {
           try {
             if (typeof middleware === 'string') {
-              const mid = Injector.get<Middleware | undefined | null>(
-                middleware
-              );
+              const mid =
+                Injector.get<Middleware | undefined | null>(middleware);
 
               if (mid) {
                 this.debugLog('Global Middleware loaded %o', middleware);
@@ -364,11 +364,11 @@ export default class Router {
           return;
         }
 
-        const searchRegExp = new RegExp('//', 'gm');
+        const searchRE2 = new RE2('//', 'gm');
         const apiPath = [this.APIPrefix, actionsPrefix, action.path ?? '']
           .join('')
           .trim()
-          .replace(searchRegExp, '/');
+          .replace(searchRE2, '/');
 
         if (apiPath?.trim() === '' || !action?.path) {
           return;
@@ -385,9 +385,8 @@ export default class Router {
             this.lock.acquire('app-middleware-injector', (done) => {
               try {
                 if (typeof middleware === 'string') {
-                  const mid = Injector.get<Middleware | undefined | null>(
-                    middleware
-                  );
+                  const mid =
+                    Injector.get<Middleware | undefined | null>(middleware);
 
                   if (mid) {
                     this.debugLog('Action Middleware loaded %o', middleware);
@@ -460,9 +459,8 @@ export default class Router {
 
                 try {
                   if (typeof middleware === 'string') {
-                    const mid = Injector.get<Middleware | undefined | null>(
-                      middleware
-                    );
+                    const mid =
+                      Injector.get<Middleware | undefined | null>(middleware);
 
                     if (mid) {
                       this.debugLog('Method Middleware loaded %o', middleware);
@@ -536,8 +534,8 @@ export default class Router {
             functionData.method.toUpperCase(),
             `${apiPath}${child}`
               .trim()
-              .replace(searchRegExp, '/')
-              .replace(new RegExp('/$', 'gm'), ''),
+              .replace(searchRE2, '/')
+              .replace(new RE2('/$', 'gm'), ''),
             functionData.name
           );
         });
@@ -756,23 +754,21 @@ export default class Router {
     );
   }
 
-  private subdomainMiddleware = (subdomain: string, fn: Function) => (
-    req: ExpressRequest,
-    res: ExpressResponse,
-    next: NextFunction
-  ) => {
-    const host = req.headers.host?.toString().split(':')[0];
-    if (!host) {
-      return next();
-    }
+  private subdomainMiddleware =
+    (subdomain: string, fn: Function) =>
+    (req: ExpressRequest, res: ExpressResponse, next: NextFunction) => {
+      const host = req.headers.host?.toString().split(':')[0];
+      if (!host) {
+        return next();
+      }
 
-    const subdomains = host
-      .split('.')
-      .filter((x: any) => !!x && x.toString().trim() !== '');
-    if (subdomains.join('.').trim().startsWith(subdomain.toString().trim())) {
-      return fn(req, res, next);
-    } else {
-      return next();
-    }
-  };
+      const subdomains = host
+        .split('.')
+        .filter((x: any) => !!x && x.toString().trim() !== '');
+      if (subdomains.join('.').trim().startsWith(subdomain.toString().trim())) {
+        return fn(req, res, next);
+      } else {
+        return next();
+      }
+    };
 }
