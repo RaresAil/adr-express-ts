@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## **v2.2.0**
+
+- Updated deps
+
+### Added
+
+- Added RE2
+
+## **v2.1.3**
+
+- Updated deps
+
+## **v2.1.2**
+
+- Updated deps
+
+## **v2.1.1**
+
+- Updated deps
+
 ## **v2.1.1**
 
 ### Removed
