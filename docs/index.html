@@ -118,21 +118,13 @@
 <li><a href="https://www.npmjs.com/package/@adr-express-ts/core">NPM</a></li>
 </ul>
 <p>This package is a dependency injection for express with typescript using decorators and the <a href="https://en.wikipedia.org/wiki/Action%E2%80%93domain%E2%80%93responder">Action–Domain–Responder</a> pattern.</p>
-<h2>Demos made with this library:</h2>
-<ul>
-<li><a href="https://github.com/RaresAil/express-oauth-password-grant-example">OAuth2 Password Grant Server</a></li>
-</ul>
+<h2>OAuth2 for ADR-Express-TS:</h2>
+<p>In the <a href="#dependency-selector">Dependency Selector</a> you can select the OAuth2 module which comes with a template.</p>
 <h2>Getting Started</h2>
 <h4>Create</h4>
 <p>Use my CLI to create the application. Instead of &quot;myFolderName&quot; you can add &quot;.&quot; to install it in the current directory.
 Always use <code>npx</code> to use the latest version of the CLI.</p>
-<pre class="prettyprint source lang-zsh"><code>npx eadit-cli create myFolderName
-</code></pre>
-<h4>Template Check</h4>
-<p>You will be asked to choose a template. For this one you have to select <code>Express</code></p>
-<pre class="prettyprint source lang-zsh"><code>? What template do you want? (Use arrow keys)
-❯ Express
-  Discord.js
+<pre class="prettyprint source lang-zsh"><code>npx @adr-express-ts/cli create myFolderName
 </code></pre>
 <h4>Path Check</h4>
 <p>You will get the following question:</p>
@@ -243,8 +235,10 @@ Always use <code>npx</code> to use the latest version of the CLI.</p>
     path: '/',
     directory: ['public']
   },
-  errorHandler: undefined /* If undefined, the default error handler will be used. */,
-  notFoundHandler: undefined /* If undefined, the default not found handler will be used. */
+  errorHandler:
+    undefined /* If undefined, the default error handler will be used. */,
+  notFoundHandler:
+    undefined /* If undefined, the default not found handler will be used. */
 });
 </code></pre>
 <h2>Entity Model</h2>

@@ -18,9 +18,9 @@
 
 This package is a dependency injection for express with typescript using decorators and the [Action–Domain–Responder](https://en.wikipedia.org/wiki/Action–domain–responder) pattern.
 
-## Demos made with this library:
+## OAuth2 for ADR-Express-TS:
 
-- [OAuth2 Password Grant Server](https://github.com/RaresAil/express-oauth-password-grant-example)
+In the [Dependency Selector](#dependency-selector) you can select the OAuth2 module which comes with a template.
 
 ## Getting Started
 
@@ -30,17 +30,7 @@ Use my CLI to create the application. Instead of "myFolderName" you can add "." 
 Always use `npx` to use the latest version of the CLI.
 
 ```zsh
-npx eadit-cli create myFolderName
-```
-
-#### Template Check
-
-You will be asked to choose a template. For this one you have to select `Express`
-
-```zsh
-? What template do you want? (Use arrow keys)
-❯ Express
-  Discord.js
+npx @adr-express-ts/cli create myFolderName
 ```
 
 #### Path Check
@@ -176,8 +166,10 @@ Injector.setup({
     path: '/',
     directory: ['public']
   },
-  errorHandler: undefined /* If undefined, the default error handler will be used. */,
-  notFoundHandler: undefined /* If undefined, the default not found handler will be used. */
+  errorHandler:
+    undefined /* If undefined, the default error handler will be used. */,
+  notFoundHandler:
+    undefined /* If undefined, the default not found handler will be used. */
 });
 ```
 
