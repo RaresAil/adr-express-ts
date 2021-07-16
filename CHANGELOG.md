@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## **v2.2.2**
+
+- Updated deps
+
 ## **v2.2.0**
 
 - Updated deps

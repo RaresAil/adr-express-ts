@@ -152,8 +152,7 @@ exports.default = (function (path, middlewares) { return function (constructor) 
         }, 'actions');
     }
     else {
-        ExpressTS_1.default.setData(actionHash, __assign(__assign({}, action), { target: constructor, instance: new constructor(), path: path,
-            middlewares: middlewares }), 'actions');
+        ExpressTS_1.default.setData(actionHash, __assign(__assign({}, action), { target: constructor, instance: new constructor(), path: path, middlewares: middlewares }), 'actions');
     }
     var _injectedAction = function () { };
     ExpressTS_1.default.inject(_injectedAction, constructor, 'action', actionHash);
