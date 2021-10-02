@@ -125,7 +125,7 @@ var ExpressTS_1 = __importDefault(require("../app/ExpressTS"));
  * }
  */
 function Inject(constructor) {
-    var injectionHash = object_hash_1.default(constructor);
+    var injectionHash = (0, object_hash_1.default)(constructor);
     if (!ExpressTS_1.default.getData(injectionHash, 'injections')) {
         ExpressTS_1.default.setData(injectionHash, constructor, 'injections');
     }

@@ -142,7 +142,7 @@ exports.default = (function (name) { return function (constructor) {
     if (constructor.name === '_injected') {
         throw new Error('The responder must be called first!');
     }
-    var responderHash = object_hash_1.default(constructor);
+    var responderHash = (0, object_hash_1.default)(constructor);
     if (!ExpressTS_1.default.getData(responderHash, 'responders')) {
         ExpressTS_1.default.setData(responderHash, name, 'responders');
     }

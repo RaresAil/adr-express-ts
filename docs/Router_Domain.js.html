@@ -137,7 +137,7 @@ exports.default = (function (name) { return function (constructor) {
     if (constructor.name === '_injected') {
         throw new Error('The domain must be called first!');
     }
-    var domainHash = object_hash_1.default(constructor);
+    var domainHash = (0, object_hash_1.default)(constructor);
     if (!ExpressTS_1.default.getData(domainHash, 'domains')) {
         ExpressTS_1.default.setData(domainHash, name, 'domains');
     }

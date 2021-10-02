@@ -159,7 +159,7 @@ exports.default = (function (name) { return function (constructor) {
     if (constructor.name === '_injected') {
         throw new Error('The entity must be called first!');
     }
-    var entityHash = object_hash_1.default(constructor);
+    var entityHash = (0, object_hash_1.default)(constructor);
     if (!ExpressTS_1.default.getData(entityHash, 'entities')) {
         ExpressTS_1.default.setData(entityHash, name, 'entities');
     }

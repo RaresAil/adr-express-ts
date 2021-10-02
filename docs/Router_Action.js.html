@@ -140,7 +140,7 @@ var ExpressTS_1 = __importDefault(require("../app/ExpressTS"));
  * }
  */
 exports.default = (function (path, middlewares) { return function (constructor) {
-    var actionHash = object_hash_1.default(constructor);
+    var actionHash = (0, object_hash_1.default)(constructor);
     var action = ExpressTS_1.default.getData(actionHash, 'actions');
     if (!action) {
         ExpressTS_1.default.setData(actionHash, {
