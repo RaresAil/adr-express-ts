@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## **v2.2.4**
+
+- Fixed `tar` audit
+
 ## **v2.2.3**
 
 - Updated deps
